@@ -1,0 +1,766 @@
+ <!DOCTYPE html>
+ <html>
+    <head>
+        <link rel="shortcut icon" href="icons/GE.png">
+        <link rel="stylesheet" href="styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+
+        <title>Lung Protocol</title>
+    </head>
+    <body onload="document.getElementById('defaultOpen').click();">
+    <div id="page-container">
+        <div id="content-wrap">
+            <div class="header-img-left"></div>
+            <h1 style="top:3em;" class="center">Sheffield Lung Protocol</h1>
+            <div class="header-img-right"></div>
+        
+            <!-- Search-Filter UI -->
+            <div style="top:19em; width:25em;" class="center">
+                <form>
+                    <fieldset class="fieldset" style="text-align:center;"data-role="controlgroup" data-type="horizontal">
+                        <input id="on" name="state-d" type="radio" checked="" />
+                        <label for="on" onclick="createTable()">1.5T</label>
+                        <input style="margin-left: 9px;" id="off" name="state-d" type="radio" />
+                        <label for="off" onclick="createTable()">3T</label>
+                        <!--<input type="checkbox" onclick="filterTa    ble()" id="proton" name="proton" checked>
+                        <label for="proton">Proton</label>-->
+                        <input style="margin-left: 42px;" type="checkbox" onclick="filterTable()" id="contrast" name="contrast" checked>
+                        <label for="contrast">Contrast</label>
+                        <input style="margin-left: 9px;" type="checkbox" onclick="filterTable()" id="xenon" name="xenon" checked>
+                        <label for="xenon"><sup>129</sup>Xe</label>
+                    </fieldset>
+                    <input  class="fieldset" type="text" id="myInput" onkeyup="searchTable()" placeholder="Search for sequence.." title="Type in a sequence">
+                </form>
+            </div>
+            <!-- Tab links --> 
+            <div style="position:absolute; width:100%; top:2em;">
+                <div class="dropdown">
+                    <button onclick="dropdownFunction()" class="dropbtn">Select protocol</button>
+                    <div id="myDropdown" class="dropdown-content">
+                    <a id="defaultOpen" class="tablinks active" onclick="openTab(event, 'SEQtab')">All sequences</a>
+                    <a class="tablinks" onclick="openTab(event, 'ILDtab')">Interstitial Lung Disease</a>
+                    <a class="tablinks" onclick="openTab(event, 'CFtab')">Cystic Fibrosis</a>
+                    <a class="tablinks" onclick="openTab(event, 'COPDtab')">Chronic Obstructive Pulmonary Disease/Asthma</a>
+                    <a class="tablinks" onclick="openTab(event, 'PVtab')">Pulmonary Vascular Diseases</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab content -->
+            <div id="table_container" style="position:relative; margin-left:1%;width:98%; top:19.5em;">
+
+                <div id="SEQtab" class="tabcontent">
+                    <h3>All sequences</h3>
+                    <table class="myTable" id="SEQ">
+                    </table>    
+                </div>
+
+                <div id="ILDtab" class="tabcontent">
+                    <h3>Interstitial Lung Disease</h3>
+                    <table class="myTable" id="ILD">
+                    </table>
+                </div>
+            
+                <div id="CFtab" class="tabcontent">
+                    <h3>Cystic Fibrosis</h3>
+                    <table class="myTable" id="CF">
+                    </table>
+                </div>
+                <div id="COPDtab" class="tabcontent">
+                    <h3>COPD/Asthma</h3>
+                    <table class="myTable" id="COPD">
+                    </table>
+                </div>
+                <div id="PVtab" class="tabcontent">
+                    <h3>Pulmonary Vascular Diseases</h3>
+                    <table class="myTable" id="PV">
+                    </table>    
+                </div>
+            </div>
+        </div>
+        </div>
+         <script>
+
+            function openTab(evt, diseaseName) {
+                // Declare all variables
+                var i, tabcontent, tablinks;
+
+                // Get all elements with class="tabcontent" and hide them
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+
+                // Get all elements with class="tablinks" and remove the class "active"
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                // Show the current tab, and add an "active" class to the button that opened the tab
+                document.getElementById(diseaseName).style.display = "block";
+                evt.currentTarget.className += " active";
+
+                //Reset search field
+                input = document.getElementById("myInput");
+                input.value="";
+
+                createTable();
+            }
+
+            // Make sequences
+
+            var sequences_1_5T_Product = {
+                0:  ["Product"],
+                1:  ["Product"],
+                2:  ["Product"],
+                3:  ["ATSM"],
+                4:  ["ATSM"],
+                5:  ["Product"],
+                6:  ["Product"],
+                7:  ["Product"],
+                8:  ["Product"],
+                9:  ["Product"],
+                10: ["Product"],
+                11: ["Research"],
+                12: ["Research"],
+                13: ["Research"],
+                14: ["Research"]
+            }
+
+            var sequences_1_5T_Sequence = {
+                0:  ["Localizer"],
+                1:  ["Calibration"],
+                2:  ["ZTE"],
+                3:  ["ZTE4D"],
+                4:  ["UTE"],
+                5:  ["3D SPGR"],
+                6:  ["PROPELLER"],
+                7:  ["FIESTA"],
+                8:  ["Fourier Decomposition"],
+                9:  ["Variable FA 3D SPGR"],
+                10: ["DCE Contrast"],
+                11: ["Xe QA"],
+                12: ["Xe 3D Ventilation"],
+                13: ["Xe 3D Dissolved"],
+                14: ["Xe 3D DWI"]
+            }
+
+            var sequences_3T_Sequence = {
+                0:  ["Localizer"],
+                1:  ["Calibration"],
+                2:  ["ZTE"],
+                3:  ["ZTE4D"],
+                4:  ["UTE"],
+                5:  ["3D SPGR"],
+                6:  ["PROPELLER"],
+                7:  ["FIESTA"],
+                8:  ["Fourier Decomposition"],
+                9:  ["Variable FA 3D SPGR"],
+                10: ["DCE Contrast"],
+                11: ["Xe QA"],
+                12: ["Xe 3D Ventilation"],
+                13: ["Xe 3D Dissolved"],
+                14: ["Xe 3D DWI"]
+            }
+
+            var sequences_1_5T_Details = {
+                0:  ["protocol_sequences/Localizer.png"],
+                1:  ["protocol_sequences/CalBH.png"],
+                2:  ["protocol_sequences/ZTE3D.png"],
+                3:  ["protocol_sequences/ZTE4D.png"],
+                4:  ["protocol_sequences/UTE.png"],
+                5:  ["protocol_sequences/3DSPGR.png"],
+                6:  ["protocol_sequences/PROPELLER.png"],
+                7:  ["protocol_sequences/FIESTA.png"],
+                8:  ["protocol_sequences/PREFUL.png"],
+                9:  ["protocol_sequences/DCE_non_contrast.png"],
+                10: ["protocol_sequences/DCE.png"],
+                11: ["protocol_sequences/XeQA.png"],
+                12: ["protocol_sequences/Xe3DVentilation.png"],
+                13: ["protocol_sequences/Xe3DDissolved.png"],
+                14: ["protocol_sequences/Xe3DDiffusion.png"]
+            }
+
+            var sequences_1_5T_DetailsText = {
+                0:  ["Protocol 1.5T"],
+                1:  ["Protocol 1.5T"],
+                2:  ["Protocol 1.5T"],
+                3:  ["Protocol 1.5T"],
+                4:  ["Protocol 1.5T"],
+                5:  ["Protocol 1.5T"],
+                6:  ["Protocol 1.5T"],
+                7:  ["Protocol 1.5T"],
+                8:  ["Protocol 1.5T"],
+                9:  ["Protocol 1.5T"],
+                10: ["Protocol 1.5T"],
+                11: ["Protocol 1.5T"],
+                12: ["Protocol 1.5T"],
+                13: ["Protocol 1.5T"],
+                14: ["Protocol 1.5T"]
+            }
+
+            var sequences_1_5T_Images = {
+                0:  ["/Localizer.png"],
+                1:  ["/Calibration.png"],
+                2:  ["/ZTE.png"],
+                3:  ["/ZTE4D.png"],
+                4:  ["/UTE.png"],
+                5:  ["/3DSPGR_TLC.png","/3DSPGR_RV.png"],
+                6:  ["/PROPELLER.png"],
+                7:  ["/FIESTA.png"],
+                8:  ["/PREFUL.png"],
+                9:  ["/DCE_non_contrast.png"],
+                10: ["/DCE.png","/DCE_MAP.png"],
+                11: ["/XeQA.png"],
+                12: ["/Xe3DVentilation.png"],
+                13: ["/Xe3DDissolved.png","/Xe3DDissolved_RBC.png","/Xe3DDissolved_RBC_TP.png"],
+                14: ["/Xe3DDiffusion.png","/Xe3DDiffusion_ADC.png"]
+            }
+
+            var sequences_3T_Details = {
+                0:  ["protocol_sequences/Localizer.png"],
+                1:  ["protocol_sequences/CalBH.png"],
+                2:  ["protocol_sequences/ZTE3D.png"],
+                3:  ["protocol_sequencesZTE4D.png"],
+                4:  ["protocol_sequences/UTE.png"],
+                5:  ["protocol_sequences/3DSPGR.png"],
+                6:  ["protocol_sequences/PROPELLER.png"],
+                7:  ["protocol_sequences/FIESTA.png"],
+                8:  ["protocol_sequences/PREFUL.png"],
+                9:  ["protocol_sequences/DCE_non_contrast.png"],
+                10: ["protocol_sequences/DCE.png"],
+                11: ["protocol_sequences/XeQA.png"],
+                12: ["protocol_sequences/Xe3DVentilation.png"],
+                13: ["protocol_sequences/Xe3DDissolved.png"],
+                14: ["protocol_sequences/Xe3DDiffusion.png"]
+            }
+
+            var sequences_3T_Images = {
+                0:  ["/Localizer.png"],
+                1:  ["/Calibration.png"],
+                2:  ["/ZTE.png"],
+                3:  ["/ZTE4D.png"],
+                4:  ["/UTE.png"],
+                5:  ["/3DSPGR_TLC.png","/3DSPGR_RV.png"],
+                6:  ["/PROPELLER.png"],
+                7:  ["/FIESTA.png"],
+                8:  ["/PREFUL.png"],
+                9:  ["/DCE_non_contrast.png"],
+                10: ["/DCE.png","/DCE_MAP.png"],
+                11: ["/XeQA.png"],
+                12: ["/Xe3DVentilation.png"],
+                13: ["/Xe3DDissolved.png","/Xe3DDissolved_RBC.png","/Xe3DDissolved_RBC_TP.png"],
+                14: ["/Xe3DDiffusion.png","/Xe3DDiffusion_ADC.png"]
+            }
+
+            var sequences_Instructions = {
+                0:  ["<b>Localizer</b><br><br> Set large FOV to cover the whole chest."],
+                1:  ["<b>Calibration scan</b><br><br> Allows for ASSET and PURE options in the protocol.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration."],
+                2:  ["<b>ZTE</b><br><br> Silent high resolution proton density weighting imaging. <br><br> Adjust respiratory gating for inspiration/expiration."],
+                3:  ["<b>ZTE4D (ATSM)</b><br><br> Silent high resolution proton density weighting imaging with retrospective respiratory binning."],
+                4:  ["<b>UTE (Research sequence) </b><br><br> High resolution proton density weighting imaging. <br><br> Set trigger to acquire during expiration."],
+                5:  ["<b>3D SPGR</b><br><br> T2* contrast increases in aerated lung tissue. Acquire in inspiration and expiration to estimate the total lung capacity (TLC) and residual volume (RV). <br><br>For repeatibility, control the inhaled volume using a bag of air during inspiration."],
+                6:  ["<b>PROPELLER</b><br><br> Structural high resolution T2 weigheted imaging. Intense areas are linked to presence of mocus.<br><br> Set fat suppresion and respiratory trigger during expiration."],
+                7:  ["<b>FIESTA</b><br><br> The inherent contrast is proportional to the ratio T2/T1, provoding bright signal in mucus and blood.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration."],
+                8:  ["<b>Fourier Decomposition</b><br><br> A contrast agent-free proton MR acquisition and postprocessing method for lung perfusion (Q) and ventilation (V) assessment.<br><br>If <sup>129</sup>Xe imaging is used in the protocol, plan this sequence matching the xenon planning for better comparison."],
+                9:  ["<b>Variable flip angle 3D SPGR.</b><br><br> The sequence is repeated 4 times with different flip angles (i.e., 2,4,10,30) to generate a baseline T1 map before acquiring the DCE with contrast.<br><br>The flip angle is set manually modifying the CV <i>pw_rf1</i>.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration."],
+                10: ["<b>DCE</b><br><br> Provides perfusion information (~1 volume/second) acquired during the administration of a gadollinium bolus. The post-processed maps allow for the identification of obstructed vessels, inflammation and fibrotic areas.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration.<br><br> Calculate contrast dose at 0.05mls/Kg - inject at 4mls/s"],
+                11: ["<b>Xe QA<br>(Research sequence)</b><br><br> This sequence serves as a quality assessment before running <sup>129</sup>Xe sequences"],
+                12: ["<b>Xe 3D Ventilation<br>(Research sequence)</b><br><br> High resolution ventilation maps show localized ventilation defects in the lung."],
+                13: ["<b>Xe 3D Dissolved<br>(Research sequence)</b><br><br>Measures the concentration of <sup>129</sup>Xe dissolved in the lung tissue/plasma (TP) and red blood cells (RBC)."],
+                14: ["<b>Xe 3D DWI<br>(Research sequence)</b><br><br> The apparent diffusion coefficient (ADC) is a measure of gas diffusion in the airspaces, where restrictions by tissue boundaries provide information about lung microstructure down to the alveolar level."]
+            }
+
+            var references= {
+                14: ["https://erj.ersjournals.com/content/54/suppl_63/PA3157"]
+            }
+
+            var sequences_Protocol = {
+                0: ["SEQ","ILD","CF","COPD","PV"],
+                1: ["SEQ","ILD","CF","COPD","PV"],
+                2: ["SEQ","ILD","CF","COPD","PV"],
+                3: ["SEQ",],
+                4: ["SEQ",],
+                5: ["SEQ","ILD","CF","COPD","PV"],
+                6: ["SEQ","ILD","CF"],
+                7: ["SEQ","CF","PV"],
+                8: ["SEQ","CF","COPD"],
+                9: ["SEQ","ILD","CF","COPD","PV"],
+                10: ["SEQ","ILD","CF","COPD","PV"],
+                11: ["SEQ","ILD","CF","COPD","PV"],
+                12: ["SEQ","CF",,"COPD"],
+                13: ["SEQ","ILD","COPD","PV"],
+                14: ["SEQ","ILD","COPD"]
+            }
+
+            var sequences_Type = {
+                0:  ["Proton"],
+                1:  ["Proton"],
+                2:  ["Proton"],
+                3:  ["Proton"],
+                4:  ["Proton"],
+                5:  ["Proton"],
+                6:  ["Proton"],
+                7:  ["Proton"],
+                8:  ["Proton"],
+                9:  ["Proton","Contrast"],
+                10: ["Proton","Contrast"],
+                11: ["Xenon"],
+                12: ["Xenon"],
+                13: ["Xenon"],
+                14: ["Xenon"]
+            }
+
+            var sequences_1_5T_FOV = {
+                0:  ["40"],
+                1:  ["32"],
+                2:  ["34"],
+                3:  ["34"],
+                4:  ["48"],
+                5:  ["42"],
+                6:  ["46"],
+                7:  ["48"],
+                8:  ["48"],
+                9:  ["40"],
+                10: ["40"],
+                11: ["40"],
+                12: ["40"],
+                13: ["40"],
+                14: ["40"]
+            }
+            var sequences_1_5T_FA = {
+                0:  ["40"],
+                1:  ["32"],
+                2:  ["34"],
+                3:  ["34"],
+                4:  ["48"],
+                5:  ["42"],
+                6:  ["46"],
+                7:  ["48"],
+                8:  ["48"],
+                9:  ["40"],
+                10: ["40"],
+                11: ["40"],
+                12: ["40"],
+                13: ["40"],
+                14: ["40"]
+            }
+            var sequences_1_5T_duration = {
+                0:  ["15"],
+                1:  ["15"],
+                2:  ["360"],
+                3:  ["360"],
+                4:  ["360"],
+                5:  ["20"],
+                6:  ["240"],
+                7:  ["15"],
+                8:  ["490"],
+                9:  ["30"],
+                10: ["30"],
+                11: ["10"],
+                12: ["10"],
+                13: ["15"],
+                14: ["16"]
+            }
+            //Create table dynamically, just make sure all attributes have the same length.
+            function createTable() {
+
+                if( document.getElementById('on').checked)
+                {
+                    sequence_name = "sequences_1_5T_"
+                }
+                else
+                {
+                    sequence_name = "sequences_3T_"
+                }
+
+                var tabId=document.getElementsByClassName('active')[0].getAttribute('onclick').split(" ")[1].replace(/\W/g, '');
+                var tableId = tabId.substring(0,tabId.length-3);
+                document.getElementById(tableId).innerHTML = "";
+
+                var list_rows = Object.keys(sequences_1_5T_Sequence); 
+
+                /*if(tabId=="SEQtab")
+                {
+                    var attributes = ["Sequence","FOV","FA"];
+                }
+                else{
+                    var attributes = ["Sequence","Details","Images"];
+                }*/
+
+                var attributes = ["Sequence","Images","Details"];
+
+                const fragment = document.createDocumentFragment()
+                const trheader= document.createElement('tr')
+                trheader.setAttribute("class","header")
+
+                for (let column = 0; column<attributes.length; column++){
+                    const th = document.createElement('th')
+                    th.textContent = attributes[column]
+                    th.style.textAlign = "center";
+
+                    trheader.appendChild(th)
+                }
+
+                fragment.appendChild(trheader)
+                
+                for (let row = 0; row<list_rows.length; row++){ 
+                    const tr = document.createElement('tr')
+                    tr.setAttribute('class',"Row"+row);//To identify the added rows
+
+                    for (let column = 0; column<attributes.length; column++){
+                        const a = document.createElement('a')
+                        const p = document.createElement('p')
+                        const td = document.createElement('td')
+                        td.setAttribute('onclick','openField(this,"'+tableId+'")');
+                        td.style.textAlign = "center";
+
+                        if(column==0)
+                        {
+                            td.setAttribute("width","15%");
+                            p.textContent = eval(sequence_name+ attributes[column]+"["+row+"]");//+ " ( " + eval(sequence_name+"Product["+row+"]") + " ) ";
+                            td.appendChild(p)
+
+                        }
+                        else{
+                            if(column==1)
+                            {
+                                td.setAttribute("width","25%");
+                            }
+                            else if(column==2)
+                            {
+                                td.setAttribute("width","60%");
+                            }
+                        /* if(tabId=="SEQtab")
+                            {
+                                a.textContent = eval(sequence_name+ attributes[column]+"["+row+"]");
+                            }
+                            else{*/
+                                a.textContent = attributes[column];
+                                a.setAttribute("class", "detailslink");
+
+                                if(attributes[column]=="Images")
+                                {
+                                    a.href = "images/"+tableId+eval(sequence_name+attributes[column]+"["+row+"]");
+                                    a.setAttribute('onclick', "generatePage()");
+                                }
+                                else{
+                                    a.href = eval(sequence_name+attributes[column]+"["+row+"]");
+                                    a.setAttribute('onclick', "window.open('"+eval(sequence_name+attributes[column]+"["+row+"]")+"'), 'newwindow', 'width=400, height=250'); return false;");
+                                }
+                            //}
+                            td.appendChild(a)
+                        }
+                        td.setAttribute("type",sequences_Type[row])
+                        tr.appendChild(td)
+                    }
+
+                    fragment.appendChild(tr)
+                }
+                
+                const footer= document.createElement('footer');
+                footer.setAttribute("class","stikybottom");
+                footer.id="footer";
+                const p= document.createElement('p');
+                p.textContent = "Author: Dr. Jose de Arcos. Images and protocols courtesy of Professor Jim Wild, University of Sheffield."
+                footer.appendChild(p)
+
+                fragment.appendChild(footer)
+
+                document.getElementById(tableId).appendChild(fragment)
+
+                filterTable();
+
+            }
+
+            /*Filter sequence by name*/
+            function filterTable() {
+                var tabId=document.getElementsByClassName('active')[0].getAttribute('onclick').split(" ")[1].replace(/\W/g, '');
+                var tableId = tabId.substring(0,tabId.length-3);
+                var table = document.getElementById(tableId);
+                var tr = table.getElementsByTagName("tr");
+
+                for (var i = 1; i < tr.length; i++) {
+                    var td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        if(sequences_Protocol[i-1].includes(tableId)){
+                            
+                            tr[i].style.display = "";
+
+                            /*if (document.getElementById('proton').checked) {
+                                if(sequences_Type[i-1].includes('Proton'))
+                                {
+                                    tr[i].style.display = "";
+                                }
+                            }*/
+
+                            if (!document.getElementById('contrast').checked) {
+                                if(sequences_Type[i-1].includes('Contrast'))
+                                {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+
+                            if (!document.getElementById('xenon').checked) {
+                                if(sequences_Type[i-1].includes('Xenon'))
+                                {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            tr[i].style.display = "none";
+                        }
+                    }       
+                }
+            }
+
+            function searchTable() {
+                // Declare variables
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+
+                var tabId=document.getElementsByClassName('active')[0].getAttribute('onclick').split(" ")[1].replace(/\W/g, '');
+                var tableId = tabId.substring(0,tabId.length-3);
+                table = document.getElementById(tableId);
+                tr = table.getElementsByTagName("tr");
+
+                // Loop through all table rows, and hide those who don't match the search query
+                for (i = 0; i < tr.length; i++) {
+                    tr[i].style.display = "none";
+
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                    txtValue = td.textContent || td.innerText;
+
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+
+                    if(sequences_Protocol[i-1].includes(tableId)){
+                                
+                        /*if (document.getElementById('proton').checked) {
+                            if(sequences_Type[i-1].includes('Proton'))
+                            {
+                                tr[i].style.display = "";
+                            }
+                        }*/
+
+                        if (!document.getElementById('contrast').checked) {
+                            if(sequences_Type[i-1].includes('Contrast'))
+                            {
+                                tr[i].style.display = "none";
+                            }
+                        }
+
+                        if (!document.getElementById('xenon').checked) {
+                            if(sequences_Type[i-1].includes('Xenon'))
+                            {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                    else
+                    {
+                        tr[i].style.display = "none";
+                    }
+                    }
+                }
+            }
+
+            function dropdownFunction() {
+                 document.getElementById("myDropdown").classList.toggle("show");
+             }
+
+            // Close the dropdown menu if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+
+            function openField(element,tableId) {
+                var attributes = ["Sequence","Images","Details"];
+                var row = element.closest('tr').rowIndex-1;
+                var column = element.closest('td').cellIndex-1;
+               // var myWindow = window.open("", "", "width=200,height=100");
+                var currTR = element.closest('tr');
+
+               // This row is already open - close it
+                currTR.style.backgroundColor = "";
+                currTR.style.color = "";
+
+                row_string= currTR.getAttribute('class');
+                row_number = row_string.substring(3,row_string.length);
+                if(currTR && currTR.nextSibling && currTR.nextSibling.classList.contains('details')) {
+                   currTR.parentNode.removeChild(currTR.nextSibling)
+                }
+                else if(currTR && currTR.classList.contains('details'))
+                {
+                    currTR.parentNode.removeChild(currTR)
+                }
+                else{
+                    currTR.style.backgroundColor = '#64a1e8';
+                    currTR.style.color = 'black';
+                    var newTR = document.createElement("tr");
+                    newTR.style.backgroundColor = '#a7c9f2';
+                    newTR.style.color = 'black';
+
+                    newTR.setAttribute('class','details');//To identify the added rows
+
+                    //Add sequence definition
+                    newTR.innerHTML = '<td style="background-color:black;color:white;" onclick="openField(this,'+"'"+tableId+"'"+')">'+sequences_Instructions[row_number]+'</td>';
+
+                    if(tableId=="SEQ")//Only show healthy images in the general outlook
+                    {
+                        if(row_string.match(/\d+/)[0]=="0"||row_string.match(/\d+/)[0]=="1")
+                        {
+                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'></td>";
+                        }
+                        else if(row_string.match(/\d+/)[0]=="5")
+                        {
+                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                <div class='grid_single_small'>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy TLC</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RV</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                </div></td>";
+                        }
+                        else if(row_string.match(/\d+/)[0]=="10")//DCE maps
+                        {
+
+                            //TODO: Not available healthy images yet 
+                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'></td>";
+                             /*newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                <div class='grid'>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\
+                                </div></td>";*/
+                        }
+                        else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
+                        {
+                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                <div class='grid_single_small'>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                </div></td>";
+                        }
+                        else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
+                        {
+                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                <div class='grid'>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy ADC</figcaption></figure>\
+                                </div></td>";
+                        }
+                        else{
+                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"50%\"><figcaption>Healthy</figcaption></figure></td>";
+                        }
+                    }
+                    else{
+
+                        //Multiple images for maps //"13","14"]
+                        if(row_string.match(/\d+/)[0]=="0"||row_string.match(/\d+/)[0]=="1")
+                        {
+                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'></td>";
+                        }
+                        else if(row_string.match(/\d+/)[0]=="5")//SPGR maps
+                        {
+                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                <div class='grid'>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy TLC</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" TLC</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RV</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RV</figcaption></figure>\
+                                </div></td>";
+                        }
+                        else if(row_string.match(/\d+/)[0]=="10")//DCE maps
+                        {
+                            //TODO: Not available healthy images yet 
+
+                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                <div class='grid'>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" map</figcaption></figure>\
+                                </div></td>";
+                                /*                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\*/
+                        }
+                        else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
+                        {
+                            var content = newTR.innerHTML+"<td style='background-color:black;'> <div class='grid'>";
+                                if(tableId=="ILD")
+                                {
+                                    content = content+
+                                "<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC/TP</figcaption></figure>";
+                                }
+                                else{
+                                    content =  content+"<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC/TP</figcaption></figure>";
+                      
+                                }
+                                newTR.innerHTML = content + "</div></td>";;
+                        }
+                        else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
+                        {
+                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                <div class='grid'>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy ADC</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" ADC</figcaption></figure>\
+                                </div></td>";
+                        }
+                        else{
+                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'><div class='grid'>\
+                            <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                            <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                            </div></td>";
+
+                        }
+                     }
+
+                    //Add protocol info
+
+                    newTR.innerHTML =  newTR.innerHTML+'<td><a href='+eval(sequence_name+attributes[2]+"["+row_number+"]")+'><img class="protocol" id="protocol_'+row_number+'" src='+ eval(sequence_name+attributes[2]+"["+row_number+"]")+" width=\"100%\"></a></td>";
+
+                    currTR.parentNode.insertBefore(newTR, currTR.nextSibling);
+                }
+            }
+
+        </script>
+    </body>
+
+ </html>

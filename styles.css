@@ -1,0 +1,250 @@
+@font-face {
+  font-family: GEInspira;
+  src: url('fonts/GE Inspira Regular/GE Inspira Regular.ttf');
+}
+
+* {
+  font-family: GEInspira;
+  box-sizing: border-box;
+  margin:0px;
+}
+
+html,
+body{
+  min-height:100%;
+}
+
+.center{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+h1{
+  text-align: center;
+  font-size:2.5em;
+}
+
+h3{
+  text-align: center;
+  font-size:1.5em;
+  padding-bottom:1em;
+}
+/* Style the top banner */
+
+.header-img-left {
+  position:relative;
+  height: 4em;
+  width: 4em;
+  left:0.5em;
+  top:0.5em;
+  background: url('icons/GE.png');
+  background-size: cover;
+}
+.header-img-right {
+  position:absolute;
+  width:calc(430/117*5em);
+  right:0%;
+  height:5em;
+  top:0%;
+  background: url('icons/Sheffield.png');
+  background-size: cover;
+}
+/* Style the search bar */
+
+#myInput {
+ background-image: url('icons/searchicon.png');
+ background-position: 10px 10px;
+ background-repeat: no-repeat;
+ width: 100%;
+ font-size: 16px;
+ padding: 12px 20px 12px 40px;
+ border: 1px solid #ddd;
+ margin-bottom: 12px;
+ border-color: #316eb5;
+}
+
+/* Style the table */
+
+.myTable {
+ position:absolute;
+ border-collapse: collapse;
+ width: 100%;
+ border: 1px solid #ddd;
+ font-size: 18px;
+}
+
+.myTable th, .myTable td {
+ text-align: left;
+ padding: 12px;
+}
+
+.myTable tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.myTable tr.header
+{
+    background-color: #316eb5;
+    color:white;
+}
+
+.myTable tr:hover {
+   background-color: #64a1e8;
+   color:white;
+   font-weight: bold;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  border-top: none;
+}
+
+.tablinks{
+  text-align: center;
+  font-size:1.1em;
+}
+
+.myTable a{
+    color: black;
+}
+
+.myTable a.detailslink{
+    color: black;
+}
+
+.myTable a.detailslink:visited{
+    color: #26568d;
+}
+/* Style the dropdown button */
+
+img{
+    border: 1px solid #ddd;
+    border-color: black;
+    transition: transform .1s; /* Animation */
+    max-width:100%;
+}
+
+.protocol:hover {
+  transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 5px;
+}
+
+.grid_single {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-gap: 5px;
+}
+
+.grid_single_small {
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  grid-gap: 5px;
+}
+
+.grid_three {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-gap: 5px;
+}
+
+figure {
+    display: flex;
+    flex-flow: column;
+    height:auto;
+}
+
+figcaption {
+    background-color: #222;
+    color: #fff;
+    font: italic smaller sans-serif;
+    text-align: center;
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: #316eb5;
+  color: white;
+  padding: 16px;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #64a1e8;
+  color: white;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: absolute;
+  display: inline-block;
+  transform: translate(-50%, -50%);
+  top:11em;
+  left:50%;
+  z-index:10;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  position: inherit;
+  display: none;
+  background-color: white;;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  right:-75%;
+  width:250%;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  width:100%;
+  text-align:center;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #64a1e8; color: white ;}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+/* Style the page banner */
+
+.fieldset
+{
+   border-color: #64a1e8;
+}
+
+#page-container {
+  position: relative;
+}
+
+#content-wrap {
+  padding-bottom: 2.5em;    /* Footer height */
+}
+
+#footer {
+  left:-2em;
+  padding-left:1em;
+  padding-top:0.5em;
+  color:white;
+  background-color: #316eb5;
+  position: absolute;
+  width: 105%;
+  height: auto;
+  margin-top:2em;
+  padding:1em;
+  padding-left:2em;
+  font-size:0.75em;
+}
