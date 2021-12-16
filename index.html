@@ -443,7 +443,14 @@
 
                                 if(attributes[column]=="Images")
                                 {
-                                    a.href = "images/"+tableId+eval(sequence_name+attributes[column]+"["+row+"]");
+                                    links = eval(sequence_name+attributes[column]+"["+row+"]");
+                                    if(links.length==1)
+                                    {
+                                        a.href = "images/"+tableId+eval(sequence_name+attributes[column]+"["+row+"]");
+                                    }
+                                    else{
+                                        a.href = "images/"+tableId+eval(sequence_name+attributes[column]+"["+row+"][0]");
+                                    }
                                     a.setAttribute('onclick', "generatePage()");
                                 }
                                 else{
