@@ -30,6 +30,7 @@ h3{
   font-size:1.5em;
   padding-bottom:1em;
 }
+
 /* Style the top banner */
 
 .header-img-left {
@@ -241,10 +242,17 @@ figcaption {
   color:white;
   background-color: #316eb5;
   position: absolute;
-  width: 105%;
+  width: 110%;
   height: auto;
   margin-top:2em;
   padding:1em;
   padding-left:2em;
   font-size:0.75em;
+}
+
+@media (max-width: 768px) {
+    h1{
+      padding-top:4.5em;
+      font-size:1.5em;
+    }
 }
