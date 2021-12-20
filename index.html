@@ -82,7 +82,6 @@
         </div>
         </div>
          <script>
-
             function openTab(evt, diseaseName) {
                 // Declare all variables
                 var i, tabcontent, tablinks;
@@ -393,9 +392,10 @@
                 var attributes = ["Sequence","Images","Details"];
 
                 const fragment = document.createDocumentFragment()
+                //Header:
                 const trheader= document.createElement('tr')
                 trheader.setAttribute("class","header")
-
+                
                 for (let column = 0; column<attributes.length; column++){
                     const th = document.createElement('th')
                     th.textContent = attributes[column]
@@ -405,9 +405,10 @@
                 }
 
                 fragment.appendChild(trheader)
-                
+                //Rows:
                 for (let row = 0; row<list_rows.length; row++){ 
                     const tr = document.createElement('tr')
+                    tr.setAttribute('id',"Row"+row);//To identify the added rows
                     tr.setAttribute('class',"Row"+row);//To identify the added rows
 
                     for (let column = 0; column<attributes.length; column++){
@@ -598,7 +599,7 @@
                     }
                 }
             }
-
+            //openField reacts when a row in the table is clicked filling that row with the linked information
             function openField(element,tableId) {
                 var attributes = ["Sequence","Images","Details"];
                 var row = element.closest('tr').rowIndex-1;
@@ -610,158 +611,331 @@
                 currTR.style.backgroundColor = "";
                 currTR.style.color = "";
 
-                row_string= currTR.getAttribute('class');
-                row_number = row_string.substring(3,row_string.length);
-                if(currTR && currTR.nextSibling && currTR.nextSibling.classList.contains('details')) {
-                   currTR.parentNode.removeChild(currTR.nextSibling)
-                }
-                else if(currTR && currTR.classList.contains('details'))
+                if(currTR.hasAttribute('id'))//Main tab
                 {
-                    currTR.parentNode.removeChild(currTR)
+                    row_string = currTR.getAttribute('id');
+                    row_number = row_string.substring(3,row_string.length);
                 }
-                else{
+                else{//Details tab don't have id
+                    row_string=currTR.getAttribute('class');
+                    row_number = row_string.substring(3,row_string.length-7);
+                }
+
+                if(currTR && currTR.nextSibling && currTR.nextSibling.classList.contains(row_string+'details'))//Delete details if clicking on main tab and it is already open
+                {
+                    var elements = document.getElementsByClassName(row_string+'details');
+                    while(elements.length > 0){
+                        elements[0].parentNode.removeChild(elements[0]);
+                    }
+                }
+                else if(row_string.includes('details')) {//Delete details when clicking on a detail tab
+                   var elements = document.getElementsByClassName(row_string);
+                   document.getElementsByClassName("Row"+row_number)[0].setAttribute("style","background-color:white;");
+                   document.getElementsByClassName("Row"+row_number)[0].setAttribute("style","color:black;");
+
+                    while(elements.length > 0){
+                        elements[0].parentNode.removeChild(elements[0]);
+                    }
+                }
+                else//Create details tabs when clicking main tab
+                {
                     currTR.style.backgroundColor = '#64a1e8';
                     currTR.style.color = 'black';
                     var newTR = document.createElement("tr");
                     newTR.style.backgroundColor = '#a7c9f2';
                     newTR.style.color = 'black';
 
-                    newTR.setAttribute('class','details');//To identify the added rows
+                    newTR.setAttribute('class',row_string+'details');//To identify the added rows
 
-                    //Add sequence definition
-                    newTR.innerHTML = '<td style="background-color:black;color:white;" onclick="openField(this,'+"'"+tableId+"'"+')">'+sequences_Instructions[row_number]+'</td>';
+                    if (window.innerWidth > 960) {
 
-                    if(tableId=="SEQ")//Only show healthy images in the general outlook
-                    {
-                        if(row_string.match(/\d+/)[0]=="0"||row_string.match(/\d+/)[0]=="1")
-                        {
-                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'></td>";
-                        }
-                        else if(row_string.match(/\d+/)[0]=="5")
-                        {
-                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
-                                <div class='grid_single_small'>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy TLC</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RV</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
-                                </div></td>";
-                        }
-                        else if(row_string.match(/\d+/)[0]=="10")//DCE maps
-                        {
+                        //Add sequence definition
+                        newTR.innerHTML = '<td style="background-color:black;color:white;" onclick="openField(this,'+"'"+tableId+"'"+')">'+sequences_Instructions[row_number]+'</td>';
 
-                            //TODO: Not available healthy images yet 
-                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'></td>";
-                             /*newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
-                                <div class='grid'>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\
-                                </div></td>";*/
-                        }
-                        else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
+                        if(tableId=="SEQ")//Only show healthy images in the general outlook
                         {
-                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
-                                <div class='grid_single_small'>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
-                                </div></td>";
-                        }
-                        else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
-                        {
-                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
-                                <div class='grid'>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy ADC</figcaption></figure>\
-                                </div></td>";
-                        }
-                        else{
-                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"50%\"><figcaption>Healthy</figcaption></figure></td>";
-                        }
-                    }
-                    else{
+                            if(row_string.match(/\d+/)[0]=="0"||row_string.match(/\d+/)[0]=="1")
+                            {
+                                newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'></td>";
+                            }
+                            else if(row_string.match(/\d+/)[0]=="5")
+                            {
+                                newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                    <div class='grid_single_small'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy TLC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RV</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    </div></td>";
+                            }
+                            else if(row_string.match(/\d+/)[0]=="10")//DCE maps
+                            {
 
-                        //Multiple images for maps //"13","14"]
-                        if(row_string.match(/\d+/)[0]=="0"||row_string.match(/\d+/)[0]=="1")
-                        {
-                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'></td>";
-                        }
-                        else if(row_string.match(/\d+/)[0]=="5")//SPGR maps
-                        {
-                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
-                                <div class='grid'>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy TLC</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" TLC</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RV</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RV</figcaption></figure>\
-                                </div></td>";
-                        }
-                        else if(row_string.match(/\d+/)[0]=="10")//DCE maps
-                        {
-                            //TODO: Not available healthy images yet 
-
-                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
-                                <div class='grid'>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" map</figcaption></figure>\
-                                </div></td>";
-                                /*                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\*/
-                        }
-                        else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
-                        {
-                            var content = newTR.innerHTML+"<td style='background-color:black;'> <div class='grid'>";
-                                if(tableId=="ILD")
-                                {
-                                    content = content+
-                                "<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC/TP</figcaption></figure>";
-                                }
-                                else{
-                                    content =  content+"<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                //TODO: Not available healthy images yet 
+                                newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'></td>";
+                                /*newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                    <div class='grid'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\
+                                    </div></td>";*/
+                            }
+                            else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
+                            {
+                                newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                    <div class='grid_single_small'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC/TP</figcaption></figure>";
-                      
-                                }
-                                newTR.innerHTML = content + "</div></td>";;
-                        }
-                        else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
-                        {
-                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
-                                <div class='grid'>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy ADC</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" ADC</figcaption></figure>\
-                                </div></td>";
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    </div></td>";
+                            }
+                            else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
+                            {
+                                newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                    <div class='grid'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy ADC</figcaption></figure>\
+                                    </div></td>";
+                            }
+                            else{
+                                newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"50%\"><figcaption>Healthy</figcaption></figure></td>";
+                            }
                         }
                         else{
-                            newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'><div class='grid'>\
-                            <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                            <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
-                            </div></td>";
 
+                            //Multiple images for maps //"13","14"]
+                            if(row_string.match(/\d+/)[0]=="0"||row_string.match(/\d+/)[0]=="1")
+                            {
+                                newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'></td>";
+                            }
+                            else if(row_string.match(/\d+/)[0]=="5")//SPGR maps
+                            {
+                                newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                    <div class='grid'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy TLC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" TLC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RV</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RV</figcaption></figure>\
+                                    </div></td>";
+                            }
+                            else if(row_string.match(/\d+/)[0]=="10")//DCE maps
+                            {
+                                //TODO: Not available healthy images yet 
+
+                                newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                    <div class='grid'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" map</figcaption></figure>\
+                                    </div></td>";
+                                    /*                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\*/
+                            }
+                            else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
+                            {
+                                var content = newTR.innerHTML+"<td style='background-color:black;'> <div class='grid'>";
+                                    if(tableId=="ILD")
+                                    {
+                                        content = content+
+                                    "<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC/TP</figcaption></figure>";
+                                    }
+                                    else{
+                                        content =  content+"<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC/TP</figcaption></figure>";
+                        
+                                    }
+                                    newTR.innerHTML = content + "</div></td>";;
+                            }
+                            else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
+                            {
+                                newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                    <div class='grid'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy ADC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" ADC</figcaption></figure>\
+                                    </div></td>";
+                            }
+                            else{
+                                newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'><div class='grid'>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                </div></td>";
+
+                            }
                         }
-                     }
 
-                    //Add protocol info
+                        //Add protocol info
 
-                    newTR.innerHTML =  newTR.innerHTML+'<td><a href='+eval(sequence_name+attributes[2]+"["+row_number+"]")+'><img class="protocol" id="protocol_'+row_number+'" src='+ eval(sequence_name+attributes[2]+"["+row_number+"]")+" width=\"100%\"></a></td>";
+                        newTR.innerHTML =  newTR.innerHTML+'<td><a href='+eval(sequence_name+attributes[2]+"["+row_number+"]")+'><img class="protocol" id="protocol_'+row_number+'" src='+ eval(sequence_name+attributes[2]+"["+row_number+"]")+" width=\"100%\"></a></td>";
+                    }
+                    else{//Smaller screens
+
+                        //Add sequence definition
+                        newTR.innerHTML = '<td colspan="3" style="background-color:black;color:white;" onclick="openField(this,'+"'"+tableId+"'"+')">'+sequences_Instructions[row_number]+'</td>';
+
+                        var newTRmid = document.createElement("tr");
+                        newTRmid.style.backgroundColor = '#a7c9f2';
+                        newTRmid.style.color = 'black';
+
+                        newTRmid.setAttribute('class',row_string+'details');//To identify the added rows
+
+                        content = "<td colspan='3' style='background-color:black;' onclick='openField(this,"+'"'+tableId+'"'+")'>";
+
+                        if(tableId=="SEQ")//Only show healthy images in the general outlook
+                        {
+                            if(row_string.match(/\d+/)[0]=="0"||row_string.match(/\d+/)[0]=="1")
+                            {
+                                content =  content +"</td>";
+                            }
+                            else if(row_string.match(/\d+/)[0]=="5")
+                            {
+                                content =  content + "<div class='grid_single_small'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy TLC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RV</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    </div></td>";
+                            }
+                            else if(row_string.match(/\d+/)[0]=="10")//DCE maps
+                            {
+
+                                //TODO: Not available healthy images yet 
+                                content =  content + "</td>";
+                                /*newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
+                                    <div class='grid'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\
+                                    </div></td>";*/
+                            }
+                            else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
+                            {
+                                content =  content + "<div class='grid_single_small'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
+                                    </div></td>";
+                            }
+                            else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
+                            {
+                                content =  content + "<div class='grid'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy ADC</figcaption></figure>\
+                                    </div></td>";
+                            }
+                            else{
+                                content =  content + "<img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"50%\"><figcaption>Healthy</figcaption></figure></td>";
+                            }
+                        }
+                        else{
+
+                            content = "<td colspan='3' style='background-color:black;' onclick='openField(this,"+'"'+tableId+'"'+")'>";
+
+                            //Multiple images for maps //"13","14"]
+                            if(row_string.match(/\d+/)[0]=="0"||row_string.match(/\d+/)[0]=="1")
+                            {
+                                content =  content +"</td>";
+                            }
+                            else if(row_string.match(/\d+/)[0]=="5")//SPGR maps
+                            {
+                                content =  content + "<div class='grid'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy TLC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" TLC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RV</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RV</figcaption></figure>\
+                                    </div></td>";
+                            }
+                            else if(row_string.match(/\d+/)[0]=="10")//DCE maps
+                            {
+                                //TODO: Not available healthy images yet 
+
+                                content =  content + "<div class='grid'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" map</figcaption></figure>\
+                                    </div></tr>";
+                                    /*                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\*/
+                            }
+                            else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
+                            {
+                                content =  content + "<div class='grid'>";
+                                    if(tableId=="ILD")
+                                    {
+                                        content = content+
+                                    "<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC/TP</figcaption></figure>";
+                                    }
+                                    else{
+                                        content =  content+"<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC/TP</figcaption></figure>";
+                        
+                                    }
+                                    content = content + "</div></tr>";;
+                            }
+                            else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
+                            {
+                                content =  content + "<div class='grid'>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy ADC</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" ADC</figcaption></figure>\
+                                    </div></td>";
+                            }
+                            else{
+                                content =  content + "<div class='grid'>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                </div></tr>";
+                            }
+                        }
+
+                        newTRmid.innerHTML =  content;
+
+                        //Add protocol info
+
+                        var newTRlow = document.createElement("tr");
+                        newTRlow.style.backgroundColor = '#a7c9f2';
+                        newTRlow.style.color = 'black';
+
+                        newTRlow.setAttribute('class',row_string+'details');//To identify the added rows
+
+                        newTRlow.innerHTML =  newTRlow.innerHTML+'<td colspan="3"><a href='+eval(sequence_name+attributes[2]+"["+row_number+"]")+'><img class="protocol" id="protocol_'+row_number+'" src='+ eval(sequence_name+attributes[2]+"["+row_number+"]")+" width=\"100%\"></a></td>";
+
+                        currTR.parentNode.insertBefore(newTRlow, currTR.nextSibling);
+
+                        currTR.parentNode.insertBefore(newTRmid, currTR.nextSibling);
+                    }
 
                     currTR.parentNode.insertBefore(newTR, currTR.nextSibling);
                 }
