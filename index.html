@@ -42,7 +42,8 @@
                     <a id="defaultOpen" class="tablinks active" onclick="openTab(event, 'SEQtab')">All sequences</a>
                     <a class="tablinks" onclick="openTab(event, 'ILDtab')">Interstitial Lung Disease</a>
                     <a class="tablinks" onclick="openTab(event, 'CFtab')">Cystic Fibrosis</a>
-                    <a class="tablinks" onclick="openTab(event, 'COPDtab')">Chronic Obstructive Pulmonary Disease/Asthma</a>
+                    <a class="tablinks" onclick="openTab(event, 'COPDtab')">Chronic Obstructive Pulmonary Disease</a>
+                    <a class="tablinks" onclick="openTab(event, 'ASTHMAtab')">Asthma</a>
                     <a class="tablinks" onclick="openTab(event, 'PVtab')">Pulmonary Vascular Diseases</a>
                     </div>
                 </div>
@@ -69,8 +70,13 @@
                     </table>
                 </div>
                 <div id="COPDtab" class="tabcontent">
-                    <h3>COPD/Asthma</h3>
+                    <h3>COPD</h3>
                     <table class="myTable" id="COPD">
+                    </table>
+                </div>
+                <div id="ASTHMAtab" class="tabcontent">
+                    <h3>Asthma</h3>
+                    <table class="myTable" id="ASTHMA">
                     </table>
                 </div>
                 <div id="PVtab" class="tabcontent">
@@ -120,12 +126,14 @@
                 6:  ["Product"],
                 7:  ["Product"],
                 8:  ["Product"],
-                9:  ["Product"],
+                9:  ["Research"],
                 10: ["Product"],
-                11: ["Research"],
+                11: ["Product"],
                 12: ["Research"],
                 13: ["Research"],
-                14: ["Research"]
+                14: ["Research"],
+                15: ["Research"],
+                16: ["Research"]
             }
 
             var sequences_1_5T_Sequence = {
@@ -137,13 +145,15 @@
                 5:  ["3D SPGR"],
                 6:  ["PROPELLER"],
                 7:  ["FIESTA"],
-                8:  ["Fourier Decomposition"],
-                9:  ["Variable FA 3D SPGR"],
-                10: ["DCE Contrast"],
-                11: ["Xe QA"],
-                12: ["Xe 3D Ventilation"],
-                13: ["Xe 3D Dissolved"],
-                14: ["Xe 3D DWI"]
+                8:  ["Dynamic SPGR Imaging"],
+                9:  ["T1-mapping (Look-Locker)"],
+                10: ["Variable FA 3D SPGR"],
+                11: ["DCE Contrast"],
+                12: ["Xe QA"],
+                13: ["Xe FA Calibration"],
+                14: ["Xe 3D Ventilation"],
+                15: ["Xe 3D Dissolved"],
+                16: ["Xe 3D DWI"]
             }
 
             var sequences_3T_Sequence = {
@@ -155,13 +165,15 @@
                 5:  ["3D SPGR"],
                 6:  ["PROPELLER"],
                 7:  ["FIESTA"],
-                8:  ["Fourier Decomposition"],
-                9:  ["Variable FA 3D SPGR"],
-                10: ["DCE Contrast"],
-                11: ["Xe QA"],
-                12: ["Xe 3D Ventilation"],
-                13: ["Xe 3D Dissolved"],
-                14: ["Xe 3D DWI"]
+                8:  ["Dynamic SPGR Imaging"],
+                9:  ["T1-mapping (Look-Locker)"],
+                10: ["Variable FA 3D SPGR"],
+                11: ["DCE Contrast"],
+                12: ["Xe QA"],
+                13: ["Xe FA"],
+                14: ["Xe 3D Ventilation"],
+                15: ["Xe 3D Dissolved"],
+                16: ["Xe 3D DWI"]
             }
 
             var sequences_1_5T_Details = {
@@ -174,12 +186,14 @@
                 6:  ["protocol_sequences/PROPELLER.png"],
                 7:  ["protocol_sequences/FIESTA.png"],
                 8:  ["protocol_sequences/PREFUL.png"],
-                9:  ["protocol_sequences/DCE_non_contrast.png"],
-                10: ["protocol_sequences/DCE.png"],
-                11: ["protocol_sequences/XeQA.png"],
-                12: ["protocol_sequences/Xe3DVentilation.png"],
-                13: ["protocol_sequences/Xe3DDissolved.png"],
-                14: ["protocol_sequences/Xe3DDiffusion.png"]
+                9:  ["protocol_sequences/T1_mapping.png"],
+                10: ["protocol_sequences/DCE_non_contrast.png"],
+                11: ["protocol_sequences/DCE.png"],
+                12: ["protocol_sequences/XeQA.png"],
+                13: ["protocol_sequences/XeFA.png"],
+                14: ["protocol_sequences/Xe3DVentilation.png"],
+                15: ["protocol_sequences/Xe3DDissolved.png"],
+                16: ["protocol_sequences/Xe3DDiffusion.png"]
             }
 
             var sequences_1_5T_DetailsText = {
@@ -197,7 +211,9 @@
                 11: ["Protocol 1.5T"],
                 12: ["Protocol 1.5T"],
                 13: ["Protocol 1.5T"],
-                14: ["Protocol 1.5T"]
+                14: ["Protocol 1.5T"],
+                15: ["Protocol 1.5T"],
+                16: ["Protocol 1.5T"]
             }
 
             var sequences_1_5T_Images = {
@@ -210,12 +226,14 @@
                 6:  ["/PROPELLER.png"],
                 7:  ["/FIESTA.png"],
                 8:  ["/PREFUL.png"],
-                9:  ["/DCE_non_contrast.png"],
-                10: ["/DCE.png","/DCE_map.png"],
-                11: ["/XeQA.png"],
-                12: ["/Xe3DVentilation.png"],
-                13: ["/Xe3DDissolved.png","/Xe3DDissolved_RBC.png","/Xe3DDissolved_RBC_TP.png"],
-                14: ["/Xe3DDiffusion.png","/Xe3DDiffusion_ADC.png"]
+                9:  ["/T1_mapping.png"],
+                10: ["/DCE_non_contrast.png"],
+                11: ["/DCE.png","/DCE_map.png"],
+                12: ["/XeQA.png"],
+                13: ["/XeFA.png"],
+                14: ["/Xe3DVentilation.png"],
+                15: ["/Xe3DDissolved.png","/Xe3DDissolved_RBC.png","/Xe3DDissolved_RBC_TP.png"],
+                16: ["/Xe3DDiffusion.png","/Xe3DDiffusion_ADC.png"]
             }
 
             var sequences_3T_Details = {
@@ -228,12 +246,14 @@
                 6:  ["protocol_sequences/PROPELLER.png"],
                 7:  ["protocol_sequences/FIESTA.png"],
                 8:  ["protocol_sequences/PREFUL.png"],
-                9:  ["protocol_sequences/DCE_non_contrast.png"],
-                10: ["protocol_sequences/DCE.png"],
-                11: ["protocol_sequences/XeQA.png"],
-                12: ["protocol_sequences/Xe3DVentilation.png"],
-                13: ["protocol_sequences/Xe3DDissolved.png"],
-                14: ["protocol_sequences/Xe3DDiffusion.png"]
+                9:  ["protocol_sequences/T1_mapping.png"],
+                10: ["protocol_sequences/DCE_non_contrast.png"],
+                11: ["protocol_sequences/DCE.png"],
+                12: ["protocol_sequences/XeQA.png"],
+                13: ["protocol_sequences/XeQFApng"],
+                14: ["protocol_sequences/Xe3DVentilation.png"],
+                15: ["protocol_sequences/Xe3DDissolved.png"],
+                16: ["protocol_sequences/Xe3DDiffusion.png"]
             }
 
             var sequences_3T_Images = {
@@ -246,52 +266,58 @@
                 6:  ["/PROPELLER.png"],
                 7:  ["/FIESTA.png"],
                 8:  ["/PREFUL.png"],
-                9:  ["/DCE_non_contrast.png"],
-                10: ["/DCE.png","/DCE_map.png"],
-                11: ["/XeQA.png"],
-                12: ["/Xe3DVentilation.png"],
-                13: ["/Xe3DDissolved.png","/Xe3DDissolved_RBC.png","/Xe3DDissolved_RBC_TP.png"],
-                14: ["/Xe3DDiffusion.png","/Xe3DDiffusion_ADC.png"]
+                9:  ["/T1_mapping.png"],
+                10: ["/DCE_non_contrast.png"],
+                11: ["/DCE.png","/DCE_map.png"],
+                12: ["/XeQA.png"],
+                13: ["/XeFA.png"],
+                14: ["/Xe3DVentilation.png"],
+                15: ["/Xe3DDissolved.png","/Xe3DDissolved_RBC.png","/Xe3DDissolved_RBC_TP.png"],
+                16: ["/Xe3DDiffusion.png","/Xe3DDiffusion_ADC.png"]
             }
 
             var sequences_Instructions = {
-                0:  ["<b>Localizer</b><br><br> Set large FOV to cover the whole chest."],
-                1:  ["<b>Calibration scan</b><br><br> Allows for ASSET and PURE options in the protocol.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration."],
-                2:  ["<b>ZTE</b><br><br> Silent high resolution proton density weighting imaging. <br><br> Adjust respiratory gating for inspiration/expiration."],
-                3:  ["<b>ZTE4D (ATSM)</b><br><br> Silent high resolution proton density weighting imaging with retrospective respiratory binning."],
-                4:  ["<b>UTE (Research sequence) </b><br><br> High resolution proton density weighting imaging. <br><br> Set trigger to acquire during expiration."],
-                5:  ["<b>3D SPGR</b><br><br> The inherent T2* contrast allows for distintion of aerated lung tissue. <br><br> Acquire in inspiration and expiration to estimate the total lung capacity (TLC) and residual volume (RV). <br><br>For repeatibility, control the inhaled volume using a bag of air during inspiration."],
-                6:  ["<b>PROPELLER</b><br><br> Structural high resolution T2 weigheted imaging. Intense areas are linked to presence of mocus.<br><br> Set fat suppresion and respiratory trigger during expiration."],
-                7:  ["<b>FIESTA</b><br><br> The inherent contrast is proportional to the ratio T2/T1, provoding bright signal in mucus and blood.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration."],
-                8:  ["<b>Fourier Decomposition</b><br><br> A contrast agent-free proton MR acquisition and postprocessing method for lung perfusion (Q) and ventilation (V) assessment.<br><br>If <sup>129</sup>Xe imaging is used in the protocol, plan this sequence matching the xenon planning for better comparison."],
-                9:  ["<b>Variable flip angle 3D SPGR.</b><br><br> The sequence is repeated 4 times with different flip angles (i.e., 2,4,10,30) to generate a baseline T1 map before acquiring the DCE with contrast.<br><br>The flip angle is set manually modifying the CV <i>pw_rf1</i>.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration."],
-                10: ["<b>DCE</b><br><br> Provides perfusion information (~1 volume/second) acquired during the administration of a gadollinium bolus. The post-processed maps allow for the identification of obstructed vessels, inflammation and fibrotic areas.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration.<br><br> Calculate contrast dose at 0.05mls/Kg - inject at 4mls/s"],
-                11: ["<b>Xe QA<br>(Research sequence)</b><br><br> This sequence serves as a quality assessment before running <sup>129</sup>Xe sequences"],
-                12: ["<b>Xe 3D Ventilation<br>(Research sequence)</b><br><br> High resolution ventilation maps show localized ventilation defects in the lung."],
-                13: ["<b>Xe 3D Dissolved<br>(Research sequence)</b><br><br>Measures the concentration of <sup>129</sup>Xe dissolved in the lung tissue/plasma (TP) and red blood cells (RBC)."],
-                14: ["<b>Xe 3D DWI<br>(Research sequence)</b><br><br> The apparent diffusion coefficient (ADC) is a measure of gas diffusion in the airspaces, where restrictions by tissue boundaries provide information about lung microstructure down to the alveolar level."]
+                0:  ["<b>Localizer</b><br><br> Breath-hold FIESTA scan with slices in the 3 anatomical planes for patient localization. <br><br> Set a large FOV to cover the whole chest."],
+                1:  ["<b>Calibration scan</b><br><br> Allows for ASSET and PURE options in the protocol.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air."],
+                2:  ["<b>ZTE</b><br><br> Silent high resolution proton density weighted imaging. <br><br> Acquire images during free-breathing, using the respiratory bellows. Adjust respiratory gating for inspiration/expiration."],
+                3:  ["<b>ZTE4D (ATSM)</b><br><br> Silent high resolution proton density weighted imaging with retrospective respiratory binning. <br><br> Acquire images during free-breathing, using the respiratory bellows. Select 2 respiratory phases to reconstruct images in both inspiration and expiration, or more to reconstruct intermediate phases. <br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1007/s10334-014-0459-y'>Gibiino, F. et al.<br>Free-breathing, zero-TE MR lung imaging.<br>Magn Reson Mater Phy 28, 207-215 (2015).</a>"],
+                4:  ["<b>UTE (Research sequence) </b><br><br> High resolution proton density weighted imaging with prospective or retrospective gating.<br><br> Set trigger to acquire during expiration. Acquire images during free-breathing, using the respiratory bellows. Typically acquired with prospective respiratory gating to the expiration phase. <br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.24570'>Johnson, KM et al.<br>Optimized 3D ultrashort echo time pulmonary MRI.<br>Magn Reson Med 70(5), 1241—1250 (2013).</a>"],
+                5:  ["<b>3D SPGR</b><br><br> The inherent T2* contrast allows for distinction of aerated lung tissue. <br><br> Acquire in separate breathholds at inspiration and expiration to estimate the total lung capacity (TLC) and residual volume (RV). <br><br>For repeatibility, control the inhaled volume using a bag of air during inspiration. <br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1097/01.rli.0000250735.92266.6b'>Swift, AJ et al.<br>Rapid lung volumetry using ultrafast dynamic magnetic resonance imaging during forced vital capacity maneuver: correlation with spirometry.<br>Invest Radiol 42(1), 37—41 (2007).</a>"],
+                6:  ["<b>PROPELLER</b><br><br> Radial-based structural high resolution T2 weighted imaging. Intense areas are linked to presence of mucus and inflammation.<br><br> Set fat suppresion and respiratory trigger to expiration.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1007/s00330-015-3850-9'>Ciet, P et al.<br>Assessment of CF lung disease using motion corrected PROPELLER MRI: a comparison with CT. European Radiology 26, 780—787 (2016).</a>"],
+                7:  ["<b>FIESTA</b><br><br> Balanced steady state free precession sequence with inherent contrast is proportional to the ratio T2/T1, providing bright signal in mucus and blood.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1148/radiol.12110990'>Rajaram S et al.<br>Lung Morphology Assessment with Balanced Steady-State Free Precession MR Imaging Compared with CT.<br>Radiology 263(2) (2012).</a>"],
+                8:  ["<b>Dynamic SPGR Imaging</b><br><br>(Research post-processing required. Contact <a target='_blank' href='to:polaris@sheffield.ac.uk'>polaris@sheffield.ac.uk</a> for access)<br><br> High-temporal resolution SPGR imaging can be combined with Fourier Decomposition-based postprocessing methods for contrast-free lung perfusion (Q) and ventilation (V) assessment.<br><br>If <sup>129</sup>Xe imaging is used in the protocol, plan this sequence to match the <sup>129</sup>Xe planning for optimal comparison of derived ventilation images.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.26893'>Voskrebenzev, A et al.<br>Feasibility of quantitative regional ventilation and perfusion mapping with phase-resolved functional lung (PREFUL) MRI in healthy volunteers and COPD, CTEPH, and CF patients.<br>Magn Reson Med 79(4), 2306—2314 (2018).</a>"],
+                9:  ["<b>T1-mapping (Look-Locker) (Research sequence).</b><br><br> 2D IR-based GRE sequence wherein several images are acquired rapidly during the recovery phase after an inversion pulse. T1 maps are then produced pixelwise from the dynamic image series.<br><br>This sequence can be used as part of an oxygen-enhanced (OE) imaging protocol to study the difference in T1-shortening effect when breathing 100% O2 vs. room air in patients with gas exchange limitation.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.28342'>Saunders, LC et al. Free breathing lung T1 mapping using image registration in patients with idiopathic pulmonary fibrosis. Magn Reson Med 84(6), 3088—3102 (2020).</a>"],
+                10: ["<b>Variable flip angle 3D SPGR.</b><br><br> The sequence is repeated 4 times with different flip angles (i.e., 2,4,10,30) to generate a baseline T1 map before acquiring the DCE with contrast.<br><br>The flip angle is set manually modifying the CV <i>ia_rf1</i>.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration."],
+                11: ["<b>DCE Perfusion Imaging</b><br><br> Dynamic 3D GRE acquisition with TRICKS (~1 volume/second) acquired during the administration of a gadolinium bolus provides perfusion information. Post-processed maps allow for the identification of obstructed vessels, inflammation and fibrosis.<br><br>Acquire images during breathhold to measure the “first-pass” of the bolus, and subsequently dynamic 3D SPGR “second-pass” images to monitor bolus wash-out.<br><br>For repeatibility, control the inhaled volume using a bag of air during inspiration.<br><br>Calculate contrast dose at 0.05mls/kg - inject at 4mls/s.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1086%2F674882'>Swift, AJ et al.<br>Dynamic Contrast-Enhanced Magnetic Resonance Imaging in Patients with Pulmonary Arterial Hypertension.<br>Pulmonary Circulation 4, 61—70 (2014).</a>"],
+                12: ["<b>Xe QA<br>(Research sequence)</b><br><br> FID pulse-acquire sequence, which serves as a quality assessment before running <sup>129</sup>Xe sequences in vivo."],
+                13: ["<b>Xe FA calibration<br>(Research sequence)</b><br><br> Bloch-Siegert phase shift based spectroscopic sequence to calibrate the radiofrequency power for non-proton nuclei.<br><br>This sequence is run at the beginning of each <sup>129</sup>Xe in vivo MRI session to calibrate the transmit gain on a patient specific basis.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/nbm.1657'>Schulte, RF et al. Transmit gain calibration for nonproton MR using the Bloch-Siegert shift. NMR in Biomed 24(9), 1068—1072 (2011).</a>"],
+                14: ["<b>Xe 3D SSFP Ventilation<br>(Research sequence)</b><br><br> High resolution 3D FIESTA sequence to generate ventilation maps of lung ventilation.<br><br>Localized ventilation defects can be visualized, characteristic of obstructive lung diseases.<br><br>References:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.25732'>Stewart, NJ et al.<br>Feasibility of human lung ventilation imaging using highly polarized naturally abundant xenon and optimized three-dimensional steady-state free precession.<br>Magn Reson Med 74(2), 346—352 (2015).</a><br><br><a target='_blank' href='http://dx.doi.org/10.1136/thoraxjnl-2016-208948'>Marshall, H et al.<br>Detection of early subclinical lung disease in children with cystic fibrosis by lung ventilation imaging with hyperpolarised gas MRI.<br>Thorax 72(8), 760—762 (2017).</a>"],
+                15: ["<b>Xe 3D Dissolved-Phase <sup>129</sup>Xe Gas-Exchange Imaging<br>(Research sequence)</b><br><br>IDEAL spectroscopic imaging sequence to detect the relative signals of <sup>129</sup>Xe dissolved in the lung tissue/plasma (TP) and red blood cells (RBC), relative to the gas phase <sup>129</sup>Xe in the alveoli.<br><br>Signal ratio maps (RBC/TP, TP/Gas, RBC/Gas) are sensitive to interstitial tissue thickening and impairment of gas exchange, characteristic of pulmonary disorders such as ILD/IPF.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.28609'>Collier, GJ et al.<br>Dissolved 129Xe lung MRI with four-echo 3D radial spectroscopic imaging: Quantification of regional gas transfer in idiopathic pulmonary fibrosis.<br>Magn Reson Med 85(5), 2622—2633 (2021).</a>"],
+                16: ["<b>Xe 3D DWI<br>(Research sequence)</b><br><br>3D multiple b-value diffusion-weighted SPGR sequence with arbitrary undersampling and compressed sensing reconstruction for diffusion mapping in a single breath-hold.<br><br>The apparent diffusion coefficient (ADC) and the mean diffusive length scale (LmD) from diffusion morphometry modelling are measures of gas diffusion in the airspaces, where restrictions by tissue boundaries provide information about lung microstructure down to the alveolar level.<br><br>References:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.26279'>Chan HF et al.<br>Whole lung morphometry with 3D multiple b-value hyperpolarized gas MRI and compressed sensing.<br>Magn Reson Med 77(5), 1916—1925 (2017).</a><br><br><a target='_blank' href='https://doi.org/10.1148/radiol.2019181714'>Chan HF et al.<br>Airway Microstructure in Idiopathic Pulmonary Fibrosis: Assessment at Hyperpolarized 3He Diffusion-weighted MRI.<br>Radiology 291, 223—229 (2019).</a>"]
             }
 
             var references= {
-                14: ["https://erj.ersjournals.com/content/54/suppl_63/PA3157"]
+                16: ["https://erj.ersjournals.com/content/54/suppl_63/PA3157"]
             }
 
             var sequences_Protocol = {
-                0: ["SEQ","ILD","CF","COPD","PV"],
-                1: ["SEQ","ILD","CF","COPD","PV"],
-                2: ["SEQ","ILD","CF","COPD","PV"],
+                0: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
+                1: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
+                2: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
                 3: ["SEQ",],
                 4: ["SEQ",],
-                5: ["SEQ","ILD","CF","COPD","PV"],
+                5: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
                 6: ["SEQ","ILD","CF"],
                 7: ["SEQ","CF","PV"],
-                8: ["SEQ","CF","COPD"],
-                9: ["SEQ","ILD","CF","COPD","PV"],
-                10: ["SEQ","ILD","CF","COPD","PV"],
-                11: ["SEQ","ILD","CF","COPD","PV"],
-                12: ["SEQ","CF",,"COPD"],
-                13: ["SEQ","ILD","COPD","PV"],
-                14: ["SEQ","ILD","COPD"]
+                8: ["SEQ","CF","COPD","ASTHMA"],
+                9: ["SEQ","ILD","PV"],
+                10: ["SEQ","ILD","COPD","PV"],
+                11: ["SEQ","ILD","COPD","PV"],
+                12: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
+                13: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
+                14: ["SEQ","CF",,"COPD","ASTHMA"],
+                15: ["SEQ","ILD","COPD","ASTHMA","PV"],
+                16: ["SEQ","ILD","COPD","ASTHMA"]
             }
 
             var sequences_Type = {
@@ -304,12 +330,14 @@
                 6:  ["Proton"],
                 7:  ["Proton"],
                 8:  ["Proton"],
-                9:  ["Proton","Contrast"],
-                10: ["Proton","Contrast"],
-                11: ["Xenon"],
+                9:  ["Proton"],
+                10:  ["Proton","Contrast"],
+                11: ["Proton","Contrast"],
                 12: ["Xenon"],
                 13: ["Xenon"],
-                14: ["Xenon"]
+                14: ["Xenon"],
+                15: ["Xenon"],
+                16: ["Xenon"]
             }
 
             var sequences_1_5T_FOV = {
@@ -327,7 +355,9 @@
                 11: ["40"],
                 12: ["40"],
                 13: ["40"],
-                14: ["40"]
+                14: ["40"],
+                15: ["40"],
+                16: ["40"]
             }
             var sequences_1_5T_FA = {
                 0:  ["40"],
@@ -344,7 +374,9 @@
                 11: ["40"],
                 12: ["40"],
                 13: ["40"],
-                14: ["40"]
+                14: ["40"],
+                15: ["40"],
+                16: ["40"]
             }
             var sequences_1_5T_duration = {
                 0:  ["15"],
@@ -356,12 +388,15 @@
                 6:  ["240"],
                 7:  ["15"],
                 8:  ["490"],
+                9:  ["X"],
                 9:  ["30"],
                 10: ["30"],
                 11: ["10"],
                 12: ["10"],
-                13: ["15"],
-                14: ["16"]
+                13: ["10"],
+                14: ["15"],
+                15: ["16"],
+                16: ["16"]
             }
             //Create table dynamically, just make sure all attributes have the same length.
             function createTable() {
@@ -452,7 +487,6 @@
                                     else{
                                         a.href = "images/"+tableId+eval(sequence_name+attributes[column]+"["+row+"][0]");
                                     }
-                                    a.setAttribute('onclick', "generatePage()");
                                 }
                                 else{
                                     a.href = eval(sequence_name+attributes[column]+"["+row+"]");
@@ -472,8 +506,11 @@
                 footer.setAttribute("class","stikybottom");
                 footer.id="footer";
                 const p= document.createElement('p');
-                p.textContent = "Author: Dr. Jose de Arcos. Images and protocols courtesy of Professor Jim Wild, University of Sheffield."
-                footer.appendChild(p)
+                p.textContent = "Author: Dr. Jose de Arcos. Images and protocols courtesy of Professor Jim Wild, University of Sheffield. Contact: "
+                const p2= document.createElement('p');
+                p2.textContent = p.textContent + "polaris@sheffield.ac.uk"
+                p2.href='to:polaris@sheffield.ac.uk'
+                footer.appendChild(p2)
 
                 fragment.appendChild(footer)
 
@@ -670,7 +707,7 @@
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
                                     </div></td>";
                             }
-                            else if(row_string.match(/\d+/)[0]=="10")//DCE maps
+                            else if(row_string.match(/\d+/)[0]=="11")//DCE maps
                             {
 
                                 //TODO: Not available healthy images yet 
@@ -681,7 +718,7 @@
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\
                                     </div></td>";*/
                             }
-                            else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
+                            else if(row_string.match(/\d+/)[0]=="15")//Dissolved maps
                             {
                                 newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
                                     <div class='grid_single_small'>\
@@ -696,7 +733,7 @@
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
                                     </div></td>";
                             }
-                            else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
+                            else if(row_string.match(/\d+/)[0]=="16")//Diffusion maps
                             {
                                 newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
                                     <div class='grid'>\
@@ -710,7 +747,7 @@
                         }
                         else{
 
-                            //Multiple images for maps //"13","14"]
+                            //Multiple images for maps //"14","15"]
                             if(row_string.match(/\d+/)[0]=="0"||row_string.match(/\d+/)[0]=="1")
                             {
                                 newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'></td>";
@@ -725,7 +762,7 @@
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RV</figcaption></figure>\
                                     </div></td>";
                             }
-                            else if(row_string.match(/\d+/)[0]=="10")//DCE maps
+                            else if(row_string.match(/\d+/)[0]=="11")//DCE maps
                             {
                                 //TODO: Not available healthy images yet 
 
@@ -737,7 +774,11 @@
                                     /*                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\*/
                             }
-                            else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
+                            else if(row_string.match(/\d+/)[0]=="12"||row_string.match(/\d+/)[0]=="13")//XA QA || XA FA
+                            {
+                                newTR.innerHTML = newTR.innerHTML+"<td style='background-color:black;'> <div class='grid_single'><figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure></div></td>";
+                            }
+                            else if(row_string.match(/\d+/)[0]=="15")//Dissolved maps
                             {
                                 var content = newTR.innerHTML+"<td style='background-color:black;'> <div class='grid'>";
                                     if(tableId=="ILD")
@@ -761,7 +802,7 @@
                                     }
                                     newTR.innerHTML = content + "</div></td>";;
                             }
-                            else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
+                            else if(row_string.match(/\d+/)[0]=="16")//Diffusion maps
                             {
                                 newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'>\
                                     <div class='grid'>\
@@ -814,7 +855,7 @@
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
                                     </div></td>";
                             }
-                            else if(row_string.match(/\d+/)[0]=="10")//DCE maps
+                            else if(row_string.match(/\d+/)[0]=="11")//DCE maps
                             {
 
                                 //TODO: Not available healthy images yet 
@@ -825,7 +866,7 @@
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\
                                     </div></td>";*/
                             }
-                            else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
+                            else if(row_string.match(/\d+/)[0]=="15")//Dissolved maps
                             {
                                 content =  content + "<div class='grid_single_small'>\
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
@@ -839,7 +880,7 @@
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/black.png' width=\"100%\" height=\"100%\"><figcaption></figcaption></figure>\
                                     </div></td>";
                             }
-                            else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
+                            else if(row_string.match(/\d+/)[0]=="16")//Diffusion maps
                             {
                                 content =  content + "<div class='grid'>\
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
@@ -854,7 +895,7 @@
 
                             content = "<td colspan='3' style='background-color:black;' onclick='openField(this,"+'"'+tableId+'"'+")'>";
 
-                            //Multiple images for maps //"13","14"]
+                            //Multiple images for maps //"14","15"]
                             if(row_string.match(/\d+/)[0]=="0"||row_string.match(/\d+/)[0]=="1")
                             {
                                 content =  content +"</td>";
@@ -868,7 +909,7 @@
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RV</figcaption></figure>\
                                     </div></td>";
                             }
-                            else if(row_string.match(/\d+/)[0]=="10")//DCE maps
+                            else if(row_string.match(/\d+/)[0]=="11")//DCE maps
                             {
                                 //TODO: Not available healthy images yet 
 
@@ -879,7 +920,7 @@
                                     /*                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy map</figcaption></figure>\*/
                             }
-                            else if(row_string.match(/\d+/)[0]=="13")//Dissolved maps
+                            else if(row_string.match(/\d+/)[0]=="15")//Dissolved maps
                             {
                                 content =  content + "<div class='grid'>";
                                     if(tableId=="ILD")
@@ -903,7 +944,7 @@
                                     }
                                     content = content + "</div></tr>";;
                             }
-                            else if(row_string.match(/\d+/)[0]=="14")//Diffusion maps
+                            else if(row_string.match(/\d+/)[0]=="16")//Diffusion maps
                             {
                                 content =  content + "<div class='grid'>\
                                     <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
