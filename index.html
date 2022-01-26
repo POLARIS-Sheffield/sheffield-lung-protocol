@@ -431,7 +431,14 @@
                 const trheader= document.createElement('tr')
                 trheader.setAttribute("class","header")
                 
-                for (let column = 0; column<attributes.length; column++){
+                if (window.innerWidth > 960) {
+                    max_columns = attributes.length;
+                }
+                else{
+                    max_columns = 1;
+                }
+
+                for (let column = 0; column<max_columns; column++){
                     const th = document.createElement('th')
                     th.textContent = attributes[column]
                     th.style.textAlign = "center";
@@ -446,7 +453,7 @@
                     tr.setAttribute('id',"Row"+row);//To identify the added rows
                     tr.setAttribute('class',"Row"+row);//To identify the added rows
 
-                    for (let column = 0; column<attributes.length; column++){
+                    for (let column = 0; column<max_columns; column++){
                         const a = document.createElement('a')
                         const p = document.createElement('p')
                         const td = document.createElement('td')
@@ -455,10 +462,16 @@
 
                         if(column==0)
                         {
-                            td.setAttribute("width","15%");
+                            if(max_columns==1)
+                            {
+                                td.setAttribute("width","100%");
+                            }
+                            else{
+                                td.setAttribute("width","15%");
+                            }
                             p.textContent = eval(sequence_name+ attributes[column]+"["+row+"]");//+ " ( " + eval(sequence_name+"Product["+row+"]") + " ) ";
                             td.appendChild(p)
-
+                            
                         }
                         else{
                             if(column==1)
