@@ -477,7 +477,7 @@
                                 a.textContent = attributes[column];
                                 a.setAttribute("class", "detailslink");
 
-                                if(attributes[column]=="Images")
+                                /*if(attributes[column]=="Images")
                                 {
                                     links = eval(sequence_name+attributes[column]+"["+row+"]");
                                     if(links.length==1)
@@ -491,7 +491,7 @@
                                 else{
                                     a.href = eval(sequence_name+attributes[column]+"["+row+"]");
                                     a.setAttribute('onclick', "window.open('"+eval(sequence_name+attributes[column]+"["+row+"]")+"'), 'newwindow', 'width=400, height=250'); return false;");
-                                }
+                                }*/
                             //}
                             td.appendChild(a)
                         }
@@ -823,7 +823,7 @@
 
                         //Add protocol info
 
-                        newTR.innerHTML =  newTR.innerHTML+'<td><a href='+eval(sequence_name+attributes[2]+"["+row_number+"]")+'><img class="protocol" id="protocol_'+row_number+'" src='+ eval(sequence_name+attributes[2]+"["+row_number+"]")+" width=\"100%\"></a></td>";
+                        newTR.innerHTML =  newTR.innerHTML+'<td><a target="_blank" href='+eval(sequence_name+attributes[2]+"["+row_number+"]")+'><img class="protocol" id="protocol_'+row_number+'" src='+ eval(sequence_name+attributes[2]+"["+row_number+"]")+" width=\"100%\"></a></td>";
                     }
                     else{//Smaller screens
 
