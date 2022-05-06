@@ -248,6 +248,9 @@ figcaption {
   padding:1em;
   padding-left:2em;
   font-size:0.75em;
+  display: flex;
+  flex-direction: row;
+  justify-content: centre/space-around/space-between;
 }
 
 @media (max-width: 768px) {

@@ -518,12 +518,26 @@
                 const footer= document.createElement('footer');
                 footer.setAttribute("class","stikybottom");
                 footer.id="footer";
+                /*NJS edit*/
                 const p= document.createElement('p');
-                p.textContent = "Author: Dr. Jose de Arcos. Images and protocols courtesy of Professor Jim Wild, University of Sheffield. Contact: "
+                p.textContent = "Contact: "
                 const p2= document.createElement('p');
-                p2.textContent = p.textContent + "polaris@sheffield.ac.uk"
-                p2.href='mailto:polaris@sheffield.ac.uk'
+                p2.textContent = "|Webpage: "
+
+                const a= document.createElement('a');
+                a.textContent = "polaris@sheffield.ac.uk"
+                a.href='mailto:polaris@sheffield.ac.uk'
+
+                const a2= document.createElement('a');
+                a2.textContent = "sheffield.ac.uk/polaris"
+                a2.href='https://www.sheffield.ac.uk/polaris'                
+                
+                p.appendChild(a)
+                p2.appendChild(a2)
+
+                footer.appendChild(p)
                 footer.appendChild(p2)
+                /*NJS edit end*/
 
                 fragment.appendChild(footer)
 
