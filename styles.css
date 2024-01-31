@@ -35,23 +35,32 @@ h3{
 
 .header-img-left {
   position:relative;
-  height: 4em;
-  width: 4em;
+  width:calc(5567/1240*5em);
+  height: 5em;
   left:0.5em;
   top:0.5em;
-  background: url('icons/GE.png');
+  background: url('icons/GEHC_new.png');
   background-size: cover;
 }
 .header-img-right {
   position:absolute;
-  width:calc(430/117*5em);
+  width:calc(1500/455*5em);
   right:0%;
   height:5em;
-  top:0%;
-  background: url('icons/Sheffield.png');
+  top:0.5em;
+  right:0.5em;
+  background: url('icons/UoS_new.png');
   background-size: cover;
 }
 /* Style the search bar */
+
+input[type=radio]:checked + label {
+  font-weight: bold;
+}
+
+input[type=checkbox]:checked + label {
+  font-weight: bold;
+}
 
 #myInput {
  background-image: url('icons/searchicon.png');
@@ -62,7 +71,7 @@ h3{
  padding: 12px 20px 12px 40px;
  border: 1px solid #ddd;
  margin-bottom: 12px;
- border-color: #316eb5;
+ border-color: #3d1393;
 }
 
 /* Style the table */
@@ -86,12 +95,12 @@ h3{
 
 .myTable tr.header
 {
-    background-color: #316eb5;
+    background-color: #3d1393;
     color:white;
 }
 
 .myTable tr:hover {
-   background-color: #64a1e8;
+   background-color: #5a21c4;
    color:white;
    font-weight: bold;
 }
@@ -116,7 +125,7 @@ h3{
 }
 
 .myTable a.detailslink:visited{
-    color: #26568d;
+    color: #A280CC;
 }
 /* Style the dropdown button */
 
@@ -170,7 +179,7 @@ figcaption {
 
 /* Dropdown Button */
 .dropbtn {
-  background-color: #316eb5;
+  background-color: #3d1393;
   color: white;
   padding: 16px;
   font-size: 20px;
@@ -180,7 +189,7 @@ figcaption {
 
 /* Dropdown button on hover & focus */
 .dropbtn:hover, .dropbtn:focus {
-  background-color: #64a1e8;
+  background-color: #5a21c4;
   color: white;
 }
 
@@ -215,7 +224,7 @@ figcaption {
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #64a1e8; color: white ;}
+.dropdown-content a:hover {background-color: #5a21c4; color: white ;}
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 .show {display:block;}
@@ -224,7 +233,7 @@ figcaption {
 
 .fieldset
 {
-   border-color: #64a1e8;
+   border-color: #5a21c4;
 }
 
 #page-container {
@@ -240,7 +249,7 @@ figcaption {
   padding-left:1em;
   padding-top:0.5em;
   color:white;
-  background-color: #316eb5;
+  background-color: #3d1393;
   position: absolute;
   width: 110%;
   height: auto;

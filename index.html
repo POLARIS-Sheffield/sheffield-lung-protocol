@@ -1,19 +1,19 @@
  <!DOCTYPE html>
  <html>
     <head>
-        <link rel="shortcut icon" href="icons/GE.png">
+        <link rel="shortcut icon" href="icons/GEHC_new.png">
         <link rel="stylesheet" href="styles.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
 
-        <title>Lung Protocol</title>
+        <title>UoS-GEHC Lung Protocol</title>
     </head>
     <body onload="document.getElementById('defaultOpen').click();">
     <div id="page-container">
         <div id="content-wrap">
             <div class="header-img-left"></div>
-            <h1 style="top:3em;" class="center">Sheffield Lung Protocol</h1>
+            <h1 style="top:3em;" class="center">Sheffield-GEHC Lung Protocol</h1>
             <div class="header-img-right"></div>
         
             <!-- Search-Filter UI -->
@@ -703,10 +703,10 @@
                 }
                 else//Create details tabs when clicking main tab
                 {
-                    currTR.style.backgroundColor = '#64a1e8';
+                    currTR.style.backgroundColor = '#DACCEB';
                     currTR.style.color = 'black';
                     var newTR = document.createElement("tr");
-                    newTR.style.backgroundColor = '#a7c9f2';
+                    newTR.style.backgroundColor = 'white';
                     newTR.style.color = 'black';
 
                     newTR.setAttribute('class',row_string+'details');//To identify the added rows
@@ -858,7 +858,7 @@
                         newTR.innerHTML = '<td colspan="3" style="background-color:black;color:white;" onclick="openField(this,'+"'"+tableId+"'"+')">'+sequences_Instructions[row_number]+'</td>';
 
                         var newTRmid = document.createElement("tr");
-                        newTRmid.style.backgroundColor = '#a7c9f2';
+                        newTRmid.style.backgroundColor = '#DACCEB';
                         newTRmid.style.color = 'black';
 
                         newTRmid.setAttribute('class',row_string+'details');//To identify the added rows
@@ -993,7 +993,7 @@
                         //Add protocol info
 
                         var newTRlow = document.createElement("tr");
-                        newTRlow.style.backgroundColor = '#a7c9f2';
+                        newTRlow.style.backgroundColor = '#DACCEB';
                         newTRlow.style.color = 'black';
 
                         newTRlow.setAttribute('class',row_string+'details');//To identify the added rows
