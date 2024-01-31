@@ -102,7 +102,6 @@ input[type=checkbox]:checked + label {
 .myTable tr:hover {
    background-color: #5a21c4;
    color:white;
-   font-weight: bold;
 }
 
 /* Style the tab content */

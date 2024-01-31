@@ -116,6 +116,7 @@
 
             // Make sequences
 
+            // OUT OF DATE
             var sequences_1_5T_Product = {
                 0:  ["Product"],
                 1:  ["Product"],
@@ -138,64 +139,65 @@
 
             var sequences_1_5T_Sequence = {
                 0:  ["Localizer"],
-                1:  ["Calibration"],
-                2:  ["ZTE"],
-                3:  ["ZTE4D"],
-                4:  ["UTE"],
-                5:  ["3D SPGR"],
-                6:  ["PROPELLER"],
-                7:  ["FIESTA"],
-                8:  ["Dynamic SPGR Imaging"],
-                9:  ["T1-mapping (Look-Locker)"],
-                10: ["Variable FA 3D SPGR"],
-                11: ["DCE Contrast"],
-                12: ["Xe QA"],
-                13: ["Xe FA Calibration"],
-                14: ["Xe 3D Ventilation"],
-                15: ["Xe 3D Dissolved"],
-                16: ["Xe 3D DWI"]
+                1: ["Xe QA"],
+                2: ["Xe FA Calibration"],
+                3: ["Xe 3D Ventilation"],
+                4: ["Xe 3D Dissolved"],
+                5: ["Xe 3D Diffusion"],                
+                6:  ["Calibration"],
+                7:  ["3D SPGR (breath-hold)"],
+                8:  ["PROPELLER"],
+                9:  ["bSSFP (FIESTA)"],
+                10:  ["UTE"],
+                11:  ["Dynamic SPGR Imaging (for FD MRI)"],
+                12:  ["T1-mapping (Look-Locker)"],
+                13: ["Variable FA 3D SPGR"],
+                14: ["DCE Contrast"],
+                15:  ["ZTE"],
+                16:  ["ZTE4D"]
             }
 
             var sequences_3T_Sequence = {
                 0:  ["Localizer"],
-                1:  ["Calibration"],
-                2:  ["ZTE"],
-                3:  ["ZTE4D"],
-                4:  ["UTE"],
-                5:  ["3D SPGR"],
-                6:  ["PROPELLER"],
-                7:  ["FIESTA"],
-                8:  ["Dynamic SPGR Imaging"],
-                9:  ["T1-mapping (Look-Locker)"],
-                10: ["Variable FA 3D SPGR"],
-                11: ["DCE Contrast"],
-                12: ["Xe QA"],
-                13: ["Xe FA"],
-                14: ["Xe 3D Ventilation"],
-                15: ["Xe 3D Dissolved"],
-                16: ["Xe 3D DWI"]
+                1: ["Xe QA"],
+                2: ["Xe FA Calibration"],
+                3: ["Xe 3D Ventilation"],
+                4: ["Xe 3D Dissolved"],
+                5: ["Xe 3D Diffusion"],                
+                6:  ["Calibration"],
+                7:  ["3D SPGR (breath-hold)"],
+                8:  ["PROPELLER"],
+                9:  ["bSSFP (FIESTA)"],
+                10:  ["UTE"],
+                11:  ["Dynamic SPGR Imaging (for FD MRI)"],
+                12:  ["T1-mapping (Look-Locker)"],
+                13: ["Variable FA 3D SPGR"],
+                14: ["DCE Contrast"],
+                15:  ["ZTE"],
+                16:  ["ZTE4D"]
             }
 
             var sequences_1_5T_Details = {
                 0:  ["protocol_sequences/Localizer.png"],
-                1:  ["protocol_sequences/CalBH.png"],
-                2:  ["protocol_sequences/ZTE3D.png"],
-                3:  ["protocol_sequences/ZTE4D.png"],
-                4:  ["protocol_sequences/UTE.png"],
-                5:  ["protocol_sequences/3DSPGR.png"],
-                6:  ["protocol_sequences/PROPELLER.png"],
-                7:  ["protocol_sequences/FIESTA.png"],
-                8:  ["protocol_sequences/PREFUL.png"],
-                9:  ["protocol_sequences/T1_mapping.png"],
-                10: ["protocol_sequences/DCE_non_contrast.png"],
-                11: ["protocol_sequences/DCE.png"],
-                12: ["protocol_sequences/XeQA.png"],
-                13: ["protocol_sequences/XeFA.png"],
-                14: ["protocol_sequences/Xe3DVentilation.png"],
-                15: ["protocol_sequences/Xe3DDissolved.png"],
-                16: ["protocol_sequences/Xe3DDiffusion.png"]
+                1: ["protocol_sequences/XeQA.png"],
+                2: ["protocol_sequences/XeFA.png"],
+                3: ["protocol_sequences/Xe3DVentilation.png"],
+                4: ["protocol_sequences/Xe3DDissolved.png"],
+                5: ["protocol_sequences/Xe3DDiffusion.png"],
+                6:  ["protocol_sequences/CalBH.png"],
+                7:  ["protocol_sequences/3DSPGR.png"],
+                8:  ["protocol_sequences/PROPELLER.png"],
+                9:  ["protocol_sequences/FIESTA.png"],
+                10:  ["protocol_sequences/UTE.png"],
+                11:  ["protocol_sequences/PREFUL.png"],
+                12:  ["protocol_sequences/T1_mapping.png"],
+                13: ["protocol_sequences/DCE_non_contrast.png"],
+                14: ["protocol_sequences/DCE.png"],
+                15:  ["protocol_sequences/ZTE3D.png"],
+                16:  ["protocol_sequences/ZTE4D.png"]
             }
 
+            //Unused
             var sequences_1_5T_DetailsText = {
                 0:  ["Protocol 1.5T"],
                 1:  ["Protocol 1.5T"],
@@ -218,88 +220,85 @@
 
             var sequences_1_5T_Images = {
                 0:  ["/Localizer.png"],
-                1:  ["/Calibration.png"],
-                2:  ["/ZTE.png"],
-                3:  ["/ZTE4D.png"],
-                4:  ["/UTE.png"],
-                5:  ["/3DSPGR_TLC.png","/3DSPGR_RV.png"],
-                6:  ["/PROPELLER.png"],
-                7:  ["/FIESTA.png"],
-                8:  ["/PREFUL.png"],
-                9:  ["/T1_mapping.png"],
-                10: ["/DCE_non_contrast.png"],
-                11: ["/DCE.png","/DCE_map.png"],
-                12: ["/XeQA.png"],
-                13: ["/XeFA.png"],
-                14: ["/Xe3DVentilation.png"],
-                15: ["/Xe3DDissolved.png","/Xe3DDissolved_RBC.png","/Xe3DDissolved_RBC_TP.png"],
-                16: ["/Xe3DDiffusion.png","/Xe3DDiffusion_ADC.png"]
+                1: ["/XeQA.png"],
+                2: ["/XeFA.png"],
+                3: ["/Xe3DVentilation.png"],
+                4: ["/Xe3DDissolved.png","/Xe3DDissolved_RBC.png","/Xe3DDissolved_RBC_TP.png"],
+                5: ["/Xe3DDiffusion.png","/Xe3DDiffusion_ADC.png"],
+                6:  ["/Calibration.png"],
+                7:  ["/3DSPGR_TLC.png","/3DSPGR_RV.png"],
+                8:  ["/PROPELLER.png"],
+                9:  ["/FIESTA.png"],
+                10:  ["/UTE.png"],
+                11:  ["/PREFUL.png"],
+                12:  ["/T1_mapping.png"],
+                13: ["/DCE_non_contrast.png"],
+                14: ["/DCE.png","/DCE_map.png"],
+                15:  ["/ZTE.png"],
+                16:  ["/ZTE4D.png"]
             }
 
             var sequences_3T_Details = {
                 0:  ["protocol_sequences/Localizer.png"],
-                1:  ["protocol_sequences/CalBH.png"],
-                2:  ["protocol_sequences/ZTE3D.png"],
-                3:  ["protocol_sequencesZTE4D.png"],
-                4:  ["protocol_sequences/UTE.png"],
-                5:  ["protocol_sequences/3DSPGR.png"],
-                6:  ["protocol_sequences/PROPELLER.png"],
-                7:  ["protocol_sequences/FIESTA.png"],
-                8:  ["protocol_sequences/PREFUL.png"],
-                9:  ["protocol_sequences/T1_mapping.png"],
-                10: ["protocol_sequences/DCE_non_contrast.png"],
-                11: ["protocol_sequences/DCE.png"],
-                12: ["protocol_sequences/XeQA.png"],
-                13: ["protocol_sequences/XeQFApng"],
-                14: ["protocol_sequences/Xe3DVentilation.png"],
-                15: ["protocol_sequences/Xe3DDissolved.png"],
-                16: ["protocol_sequences/Xe3DDiffusion.png"]
+                1: ["protocol_sequences/XeQA.png"],
+                2: ["protocol_sequences/XeFA.png"],
+                3: ["protocol_sequences/Xe3DVentilation.png"],
+                4: ["protocol_sequences/Xe3DDissolved.png"],
+                5: ["protocol_sequences/Xe3DDiffusion.png"],
+                6:  ["protocol_sequences/CalBH.png"],
+                7:  ["protocol_sequences/3DSPGR.png"],
+                8:  ["protocol_sequences/PROPELLER.png"],
+                9:  ["protocol_sequences/FIESTA.png"],
+                10:  ["protocol_sequences/UTE.png"],
+                11:  ["protocol_sequences/PREFUL.png"],
+                12:  ["protocol_sequences/T1_mapping.png"],
+                13: ["protocol_sequences/DCE_non_contrast.png"],
+                14: ["protocol_sequences/DCE.png"],
+                15:  ["protocol_sequences/ZTE3D.png"],
+                16:  ["protocol_sequences/ZTE4D.png"]
             }
 
             var sequences_3T_Images = {
                 0:  ["/Localizer.png"],
-                1:  ["/Calibration.png"],
-                2:  ["/ZTE.png"],
-                3:  ["/ZTE4D.png"],
-                4:  ["/UTE.png"],
-                5:  ["/3DSPGR_TLC.png","/3DSPGR_RV.png"],
-                6:  ["/PROPELLER.png"],
-                7:  ["/FIESTA.png"],
-                8:  ["/PREFUL.png"],
-                9:  ["/T1_mapping.png"],
-                10: ["/DCE_non_contrast.png"],
-                11: ["/DCE.png","/DCE_map.png"],
-                12: ["/XeQA.png"],
-                13: ["/XeFA.png"],
-                14: ["/Xe3DVentilation.png"],
-                15: ["/Xe3DDissolved.png","/Xe3DDissolved_RBC.png","/Xe3DDissolved_RBC_TP.png"],
-                16: ["/Xe3DDiffusion.png","/Xe3DDiffusion_ADC.png"]
+                1: ["/XeQA.png"],
+                2: ["/XeFA.png"],
+                3: ["/Xe3DVentilation.png"],
+                4: ["/Xe3DDissolved.png","/Xe3DDissolved_RBC.png","/Xe3DDissolved_RBC_TP.png"],
+                5: ["/Xe3DDiffusion.png","/Xe3DDiffusion_ADC.png"],
+                6:  ["/Calibration.png"],
+                7:  ["/3DSPGR_TLC.png","/3DSPGR_RV.png"],
+                8:  ["/PROPELLER.png"],
+                9:  ["/FIESTA.png"],
+                10:  ["/UTE.png"],
+                11:  ["/PREFUL.png"],
+                12:  ["/T1_mapping.png"],
+                13: ["/DCE_non_contrast.png"],
+                14: ["/DCE.png","/DCE_map.png"],
+                15:  ["/ZTE.png"],
+                16:  ["/ZTE4D.png"]
             }
 
             var sequences_Instructions = {
                 0:  ["<b>Localizer</b><br><br> Breath-hold FIESTA scan with slices in the 3 anatomical planes for patient localization. <br><br> Set a large FOV to cover the whole chest."],
-                1:  ["<b>Calibration scan</b><br><br> Allows for ASSET and PURE options in the protocol.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air."],
-                2:  ["<b>ZTE</b><br><br> Silent high resolution proton density weighted imaging. <br><br> Acquire images during free-breathing, using the respiratory bellows. Adjust respiratory gating for inspiration/expiration."],
-                3:  ["<b>ZTE4D (ATSM)</b><br><br> Silent high resolution proton density weighted imaging with retrospective respiratory binning. <br><br> Acquire images during free-breathing, using the respiratory bellows. Select 2 respiratory phases to reconstruct images in both inspiration and expiration, or more to reconstruct intermediate phases. <br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1007/s10334-014-0459-y'>Gibiino, F. et al.<br>Free-breathing, zero-TE MR lung imaging.<br>Magn Reson Mater Phy 28, 207-215 (2015).</a>"],
-                4:  ["<b>UTE (Research sequence) </b><br><br> High resolution proton density weighted imaging with prospective or retrospective gating.<br><br> Set trigger to acquire during expiration. Acquire images during free-breathing, using the respiratory bellows. Typically acquired with prospective respiratory gating to the expiration phase. <br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.24570'>Johnson, KM et al.<br>Optimized 3D ultrashort echo time pulmonary MRI.<br>Magn Reson Med 70(5), 1241—1250 (2013).</a>"],
-                5:  ["<b>3D SPGR</b><br><br> The inherent T2* contrast allows for distinction of aerated lung tissue. <br><br> Acquire in separate breathholds at inspiration and expiration to estimate the total lung capacity (TLC) and residual volume (RV). <br><br>For repeatibility, control the inhaled volume using a bag of air during inspiration. <br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1097/01.rli.0000250735.92266.6b'>Swift, AJ et al.<br>Rapid lung volumetry using ultrafast dynamic magnetic resonance imaging during forced vital capacity maneuver: correlation with spirometry.<br>Invest Radiol 42(1), 37—41 (2007).</a>"],
-                6:  ["<b>PROPELLER</b><br><br> Radial-based structural high resolution T2 weighted imaging. Intense areas are linked to presence of mucus and inflammation.<br><br> Set fat suppresion and respiratory trigger to expiration.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1007/s00330-015-3850-9'>Ciet, P et al.<br>Assessment of CF lung disease using motion corrected PROPELLER MRI: a comparison with CT. European Radiology 26, 780—787 (2016).</a>"],
-                7:  ["<b>FIESTA</b><br><br> Balanced steady state free precession sequence with inherent contrast is proportional to the ratio T2/T1, providing bright signal in mucus and blood.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1148/radiol.12110990'>Rajaram S et al.<br>Lung Morphology Assessment with Balanced Steady-State Free Precession MR Imaging Compared with CT.<br>Radiology 263(2) (2012).</a>"],
-                8:  ["<b>Dynamic SPGR Imaging</b><br><br>(Research post-processing required. Contact <a target='_blank' href='mailto:polaris@sheffield.ac.uk'>polaris@sheffield.ac.uk</a> for access)<br><br> High-temporal resolution SPGR imaging can be combined with Fourier Decomposition-based postprocessing methods for contrast-free lung perfusion (Q) and ventilation (V) assessment.<br><br>If <sup>129</sup>Xe imaging is used in the protocol, plan this sequence to match the <sup>129</sup>Xe planning for optimal comparison of derived ventilation images.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.26893'>Voskrebenzev, A et al.<br>Feasibility of quantitative regional ventilation and perfusion mapping with phase-resolved functional lung (PREFUL) MRI in healthy volunteers and COPD, CTEPH, and CF patients.<br>Magn Reson Med 79(4), 2306—2314 (2018).</a>"],
-                9:  ["<b>T1-mapping (Look-Locker) (Research sequence).</b><br><br> 2D IR-based GRE sequence wherein several images are acquired rapidly during the recovery phase after an inversion pulse. T1 maps are then produced pixelwise from the dynamic image series.<br><br>This sequence can be used as part of an oxygen-enhanced (OE) imaging protocol to study the difference in T1-shortening effect when breathing 100% O2 vs. room air in patients with gas exchange limitation.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.28342'>Saunders, LC et al. Free breathing lung T1 mapping using image registration in patients with idiopathic pulmonary fibrosis. Magn Reson Med 84(6), 3088—3102 (2020).</a>"],
-                10: ["<b>Variable flip angle 3D SPGR.</b><br><br> The sequence is repeated 4 times with different flip angles (i.e., 2,4,10,30) to generate a baseline T1 map before acquiring the DCE with contrast.<br><br>The flip angle is set manually modifying the CV <i>ia_rf1</i>.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration."],
-                11: ["<b>DCE Perfusion Imaging</b><br><br> Dynamic 3D GRE acquisition with TRICKS (~1 volume/second) acquired during the administration of a gadolinium bolus provides perfusion information. Post-processed maps allow for the identification of obstructed vessels, inflammation and fibrosis.<br><br>Acquire images during breathhold to measure the “first-pass” of the bolus, and subsequently dynamic 3D SPGR “second-pass” images to monitor bolus wash-out.<br><br>For repeatibility, control the inhaled volume using a bag of air during inspiration.<br><br>Calculate contrast dose at 0.05mls/kg - inject at 4mls/s.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1086%2F674882'>Swift, AJ et al.<br>Dynamic Contrast-Enhanced Magnetic Resonance Imaging in Patients with Pulmonary Arterial Hypertension.<br>Pulmonary Circulation 4, 61—70 (2014).</a>"],
-                12: ["<b>Xe QA<br>(Research sequence)</b><br><br> FID pulse-acquire sequence. Run on a phantom to make a quality assessment before running <sup>129</sup>Xe sequences in vivo."],
-                13: ["<b>Xe FA calibration<br>(Research sequence)</b><br><br> Bloch-Siegert phase shift based spectroscopic sequence to calibrate the radiofrequency power for non-proton nuclei.<br><br>This sequence is run at the beginning of each <sup>129</sup>Xe in vivo MRI session to calibrate the transmit gain on a patient specific basis.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/nbm.1657'>Schulte, RF et al. Transmit gain calibration for nonproton MR using the Bloch-Siegert shift. NMR in Biomed 24(9), 1068—1072 (2011).</a>"],
-                14: ["<b>Xe 3D SSFP Ventilation<br>(Research sequence)</b><br><br> High resolution 3D FIESTA sequence to generate ventilation maps of lung ventilation.<br><br>Localized ventilation defects can be visualized, characteristic of obstructive lung diseases.<br><br>References:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.25732'>Stewart, NJ et al.<br>Feasibility of human lung ventilation imaging using highly polarized naturally abundant xenon and optimized three-dimensional steady-state free precession.<br>Magn Reson Med 74(2), 346—352 (2015).</a><br><br><a target='_blank' href='http://dx.doi.org/10.1136/thoraxjnl-2016-208948'>Marshall, H et al.<br>Detection of early subclinical lung disease in children with cystic fibrosis by lung ventilation imaging with hyperpolarised gas MRI.<br>Thorax 72(8), 760—762 (2017).</a>"],
-                15: ["<b>Xe 3D Dissolved-Phase <sup>129</sup>Xe Gas-Exchange Imaging<br>(Research sequence)</b><br><br>IDEAL spectroscopic imaging sequence to detect the relative signals of <sup>129</sup>Xe dissolved in the lung tissue/plasma (TP) and red blood cells (RBC), relative to the gas phase <sup>129</sup>Xe in the alveoli.<br><br>Signal ratio maps (RBC/TP, TP/Gas, RBC/Gas) are sensitive to interstitial tissue thickening and impairment of gas exchange, characteristic of pulmonary disorders such as ILD/IPF.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.28609'>Collier, GJ et al.<br>Dissolved 129Xe lung MRI with four-echo 3D radial spectroscopic imaging: Quantification of regional gas transfer in idiopathic pulmonary fibrosis.<br>Magn Reson Med 85(5), 2622—2633 (2021).</a>"],
-                16: ["<b>Xe 3D DWI<br>(Research sequence)</b><br><br>3D multiple b-value diffusion-weighted SPGR sequence with arbitrary undersampling and compressed sensing reconstruction for diffusion mapping in a single breath-hold.<br><br>The apparent diffusion coefficient (ADC) and the mean diffusive length scale (LmD) from diffusion morphometry modelling are measures of gas diffusion in the airspaces, where restrictions by tissue boundaries provide information about lung microstructure down to the alveolar level.<br><br>References:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.26960'>Chan HF et al.<br>3D diffusion-weighted 129Xe MRI for whole lung morphometry.<br>Magn Reson Med 79(6), 2986—2995 (2018).</a><br><br><a target='_blank' href='https://doi.org/10.1148/radiol.2019181714'>Chan HF et al.<br>Airway Microstructure in Idiopathic Pulmonary Fibrosis: Assessment at Hyperpolarized 3He Diffusion-weighted MRI.<br>Radiology 291, 223—229 (2019).</a>"]
+                1: ["<b>Xe QA<br>(Research sequence)</b><br><br> FID pulse-acquire sequence. Run on a phantom to make a quality assessment before running <sup>129</sup>Xe sequences in vivo."],
+                2: ["<b>Xe FA calibration<br>(Research sequence)</b><br><br> Bloch-Siegert phase shift based spectroscopic sequence to calibrate the radiofrequency power for non-proton nuclei.<br><br>This sequence is run at the beginning of each <sup>129</sup>Xe in vivo MRI session to calibrate the transmit gain on a patient specific basis.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/nbm.1657'>Schulte, RF et al. Transmit gain calibration for nonproton MR using the Bloch-Siegert shift. NMR in Biomed 24(9), 1068—1072 (2011).</a>"],
+                3: ["<b>Xe 3D SSFP Ventilation<br>(Research sequence)</b><br><br> High resolution 3D FIESTA sequence to generate ventilation maps of lung ventilation.<br><br>Localized ventilation defects can be visualized, characteristic of obstructive lung diseases.<br><br>References:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.25732'>Stewart, NJ et al.<br>Feasibility of human lung ventilation imaging using highly polarized naturally abundant xenon and optimized three-dimensional steady-state free precession.<br>Magn Reson Med 74(2), 346—352 (2015).</a><br><br><a target='_blank' href='http://dx.doi.org/10.1136/thoraxjnl-2016-208948'>Marshall, H et al.<br>Detection of early subclinical lung disease in children with cystic fibrosis by lung ventilation imaging with hyperpolarised gas MRI.<br>Thorax 72(8), 760—762 (2017).</a>"],
+                4: ["<b>Xe 3D Dissolved-Phase <sup>129</sup>Xe Gas-Exchange Imaging<br>(Research sequence)</b><br><br>IDEAL spectroscopic imaging sequence to detect the relative signals of <sup>129</sup>Xe dissolved in the lung tissue/plasma (TP) and red blood cells (RBC), relative to the gas phase <sup>129</sup>Xe in the alveoli.<br><br>Signal ratio maps (RBC/TP, TP/Gas, RBC/Gas) are sensitive to interstitial tissue thickening and impairment of gas exchange, characteristic of pulmonary disorders such as ILD/IPF.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.28609'>Collier, GJ et al.<br>Dissolved 129Xe lung MRI with four-echo 3D radial spectroscopic imaging: Quantification of regional gas transfer in idiopathic pulmonary fibrosis.<br>Magn Reson Med 85(5), 2622—2633 (2021).</a>"],
+                5: ["<b>Xe 3D DWI<br>(Research sequence)</b><br><br>3D multiple b-value diffusion-weighted SPGR sequence with arbitrary undersampling and compressed sensing reconstruction for diffusion mapping in a single breath-hold.<br><br>The apparent diffusion coefficient (ADC) and the mean diffusive length scale (LmD) from diffusion morphometry modelling are measures of gas diffusion in the airspaces, where restrictions by tissue boundaries provide information about lung microstructure down to the alveolar level.<br><br>References:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.26960'>Chan HF et al.<br>3D diffusion-weighted 129Xe MRI for whole lung morphometry.<br>Magn Reson Med 79(6), 2986—2995 (2018).</a><br><br><a target='_blank' href='https://doi.org/10.1148/radiol.2019181714'>Chan HF et al.<br>Airway Microstructure in Idiopathic Pulmonary Fibrosis: Assessment at Hyperpolarized 3He Diffusion-weighted MRI.<br>Radiology 291, 223—229 (2019).</a>"],
+                6:  ["<b>Calibration scan</b><br><br> Allows for ASSET and PURE options in the protocol.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air."],
+                7:  ["<b>3D SPGR</b><br><br> The inherent T2* contrast allows for distinction of aerated lung tissue. <br><br> Acquire in separate breathholds at inspiration and expiration to estimate the total lung capacity (TLC) and residual volume (RV). <br><br>For repeatibility, control the inhaled volume using a bag of air during inspiration. <br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1097/01.rli.0000250735.92266.6b'>Swift, AJ et al.<br>Rapid lung volumetry using ultrafast dynamic magnetic resonance imaging during forced vital capacity maneuver: correlation with spirometry.<br>Invest Radiol 42(1), 37—41 (2007).</a>"],
+                8:  ["<b>PROPELLER</b><br><br> Radial-based structural high resolution T2 weighted imaging. Intense areas are linked to presence of mucus and inflammation.<br><br> Set fat suppresion and respiratory trigger to expiration.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1007/s00330-015-3850-9'>Ciet, P et al.<br>Assessment of CF lung disease using motion corrected PROPELLER MRI: a comparison with CT. European Radiology 26, 780—787 (2016).</a>"],
+                9:  ["<b>FIESTA</b><br><br> Balanced steady state free precession sequence with inherent contrast is proportional to the ratio T2/T1, providing bright signal in mucus and blood.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1148/radiol.12110990'>Rajaram S et al.<br>Lung Morphology Assessment with Balanced Steady-State Free Precession MR Imaging Compared with CT.<br>Radiology 263(2) (2012).</a>"],
+                10:  ["<b>UTE (Research sequence) </b><br><br> High resolution proton density weighted imaging with prospective or retrospective gating.<br><br> Set trigger to acquire during expiration. Acquire images during free-breathing, using the respiratory bellows. Typically acquired with prospective respiratory gating to the expiration phase. <br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.24570'>Johnson, KM et al.<br>Optimized 3D ultrashort echo time pulmonary MRI.<br>Magn Reson Med 70(5), 1241—1250 (2013).</a>"],
+                11:  ["<b>Dynamic SPGR Imaging</b><br><br>(Research post-processing required. Contact <a target='_blank' href='mailto:polaris@sheffield.ac.uk'>polaris@sheffield.ac.uk</a> for access)<br><br> High-temporal resolution SPGR imaging can be combined with Fourier Decomposition-based postprocessing methods for contrast-free lung perfusion (Q) and ventilation (V) assessment.<br><br>If <sup>129</sup>Xe imaging is used in the protocol, plan this sequence to match the <sup>129</sup>Xe planning for optimal comparison of derived ventilation images.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.26893'>Voskrebenzev, A et al.<br>Feasibility of quantitative regional ventilation and perfusion mapping with phase-resolved functional lung (PREFUL) MRI in healthy volunteers and COPD, CTEPH, and CF patients.<br>Magn Reson Med 79(4), 2306—2314 (2018).</a>"],
+                12:  ["<b>T1-mapping (Look-Locker) (Research sequence).</b><br><br> 2D IR-based GRE sequence wherein several images are acquired rapidly during the recovery phase after an inversion pulse. T1 maps are then produced pixelwise from the dynamic image series.<br><br>This sequence can be used as part of an oxygen-enhanced (OE) imaging protocol to study the difference in T1-shortening effect when breathing 100% O2 vs. room air in patients with gas exchange limitation.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1002/mrm.28342'>Saunders, LC et al. Free breathing lung T1 mapping using image registration in patients with idiopathic pulmonary fibrosis. Magn Reson Med 84(6), 3088—3102 (2020).</a>"],
+                13: ["<b>Variable flip angle 3D SPGR.</b><br><br> The sequence is repeated 4 times with different flip angles (i.e., 2,4,10,30) to generate a baseline T1 map before acquiring the DCE with contrast.<br><br>The flip angle is set manually modifying the CV <i>ia_rf1</i>.<br><br>Acquire images during breathhold. For repeatibility, control the inhaled volume using a bag of air during inspiration."],
+                14: ["<b>DCE Perfusion Imaging</b><br><br> Dynamic 3D GRE acquisition with TRICKS (~1 volume/second) acquired during the administration of a gadolinium bolus provides perfusion information. Post-processed maps allow for the identification of obstructed vessels, inflammation and fibrosis.<br><br>Acquire images during breathhold to measure the “first-pass” of the bolus, and subsequently dynamic 3D SPGR “second-pass” images to monitor bolus wash-out.<br><br>For repeatibility, control the inhaled volume using a bag of air during inspiration.<br><br>Calculate contrast dose at 0.05mls/kg - inject at 4mls/s.<br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1086%2F674882'>Swift, AJ et al.<br>Dynamic Contrast-Enhanced Magnetic Resonance Imaging in Patients with Pulmonary Arterial Hypertension.<br>Pulmonary Circulation 4, 61—70 (2014).</a>"],
+                15:  ["<b>ZTE</b><br><br> Silent high resolution proton density weighted imaging. <br><br> Acquire images during free-breathing, using the respiratory bellows. Adjust respiratory gating for inspiration/expiration."],
+                16:  ["<b>ZTE4D (ATSM)</b><br><br> Silent high resolution proton density weighted imaging with retrospective respiratory binning. <br><br> Acquire images during free-breathing, using the respiratory bellows. Select 2 respiratory phases to reconstruct images in both inspiration and expiration, or more to reconstruct intermediate phases. <br><br>Reference:<br><br><a target='_blank' href='https://doi.org/10.1007/s10334-014-0459-y'>Gibiino, F. et al.<br>Free-breathing, zero-TE MR lung imaging.<br>Magn Reson Mater Phy 28, 207-215 (2015).</a>"]
             }
 
-            var references= {
-                16: ["https://erj.ersjournals.com/content/54/suppl_63/PA3157"]
-            }
-
+            //OUT OF DATE
             var sequences_Protocol = {
                 0: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
                 1: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
@@ -320,24 +319,25 @@
                 16: ["SEQ","ILD","COPD","ASTHMA"]
             }
 
+            //OUT OF DATE
             var sequences_Type = {
                 0:  ["Proton"],
-                1:  ["Proton"],
-                2:  ["Proton"],
-                3:  ["Proton"],
-                4:  ["Proton"],
-                5:  ["Proton"],
+                1: ["Xenon"],
+                2: ["Xenon"],
+                3: ["Xenon"],
+                4: ["Xenon"],
+                5: ["Xenon"],
                 6:  ["Proton"],
                 7:  ["Proton"],
                 8:  ["Proton"],
                 9:  ["Proton"],
-                10:  ["Proton","Contrast"],
-                11: ["Proton","Contrast"],
-                12: ["Xenon"],
-                13: ["Xenon"],
-                14: ["Xenon"],
-                15: ["Xenon"],
-                16: ["Xenon"]
+                10:  ["Proton"],
+                11:  ["Proton"],
+                12:  ["Proton"],
+                13:  ["Proton"],
+                14:  ["Proton","Contrast"],
+                15:  ["Proton"],
+                16: ["Proton"]
             }
 
             var sequences_1_5T_FOV = {
