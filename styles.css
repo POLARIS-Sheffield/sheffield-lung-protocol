@@ -62,6 +62,10 @@ input[type=checkbox]:checked + label {
   font-weight: bold;
 }
 
+input[type=button] {
+  font-weight: bold;
+}
+
 #myInput {
  background-image: url('icons/searchicon.png');
  background-position: 10px 10px;
