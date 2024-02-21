@@ -260,8 +260,8 @@
                 9:  ["/FIESTA.png"],
                 10: ["/HASTE.png"],
                 11:  ["/PREFUL.png"],
-                12: ["/PROPELLER.png"],
-                13: ["/PROPELLER.png"],
+                12: ["/PROPELLER_nav.png"],
+                13: ["/PROPELLER_nonav.png"],
                 14:  ["/T1_mapping.png"],
                 15:  ["/UTE.png"],
                 16: ["/DCE_non_contrast.png"],
@@ -272,27 +272,51 @@
             }
 
             var sequences_3T_Details = {
-                0:  ["protocol_sequences/1p5T/Xe-QA.png"],
-                1:  ["protocol_sequences/1p5T/3pl-loc.png"],
-                2:  ["protocol_sequences/1p5T/Xe-FAC.png"],
-                3:  ["protocol_sequences/1p5T/Xe-vent.png"],
-                4:  ["protocol_sequences/1p5T/Xe-diff.png"],
-                5:  ["protocol_sequences/1p5T/Xe-dissolved.png"],
-                6:  ["protocol_sequences/1p5T/Xe-2Dvent.png"],
-                7:  ["protocol_sequences/old/CalBH.png"],
-                8:  ["protocol_sequences/1p5T/1H-SPGR.png"],
-                9:  ["protocol_sequences/1p5T/1H-SSFPaxial.png"],
-                10:  ["protocol_sequences/1p5T/1H-HASTE.png"],
-                11:  ["protocol_sequences/1p5T/1H-FDMRI.png"],
-                12:  ["protocol_sequences/1p5T/1H-propeller-withnav.png"],
-                13:  ["protocol_sequences/1p5T/1H-propeller-withoutnav.png"],
-                14:  ["protocol_sequences/1p5T/1H-LookLocker.png"],
-                15:  ["protocol_sequences/1p5T/1H-UTE.png"],
-                16:  ["protocol_sequences/1p5T/1H-noncontrastperfusion-VFA.png"],
-                17:  ["protocol_sequences/1p5T/1H-perfusion-disco-prep.png"],
-                18:  ["protocol_sequences/1p5T/1H-perfusion-disco-dyn.png"],
-                19:  ["protocol_sequences/1p5T/1H-perfusion-1stpass-tricks.png"],
-                20:  ["protocol_sequences/1p5T/1H-perfusion-2ndpass.png"]
+                0:  ["protocol_sequences/3T/Xe-QA.png"],
+                1:  ["protocol_sequences/3T/3pl-loc.png"],
+                2:  ["protocol_sequences/3T/Xe-FAC.png"],
+                3:  ["protocol_sequences/3T/Xe-vent.png"],
+                4:  ["protocol_sequences/3T/Xe-diff.png"],
+                5:  ["protocol_sequences/3T/Xe-dissolved.png"],
+                6:  ["protocol_sequences/3T/Xe-2Dvent.png"],
+                7:  ["protocol_sequences/3T/CalBH.png"],
+                8:  ["protocol_sequences/3T/1H-SPGR.png"],
+                9:  ["protocol_sequences/3T/1H-SSFPaxial.png"],
+                10:  ["protocol_sequences/3T/1H-HASTE.png"],
+                11:  ["protocol_sequences/3T/1H-FDMRI.png"],
+                12:  ["protocol_sequences/3T/1H-propeller-withnav.png"],
+                13:  ["protocol_sequences/3T/1H-propeller-withoutnav.png"],
+                14:  ["protocol_sequences/3T/1H-LookLocker.png"],
+                15:  ["protocol_sequences/3T/1H-UTE.png"],
+                16:  ["protocol_sequences/3T/1H-noncontrastperfusion-VFA.png"],
+                17:  ["protocol_sequences/3T/1H-perfusion-disco-prep.png"],
+                18:  ["protocol_sequences/3T/1H-perfusion-disco-dyn.png"],
+                19:  ["protocol_sequences/3T/1H-perfusion-1stpass-tricks.png"],
+                20:  ["protocol_sequences/3T/1H-perfusion-2ndpass.png"]
+            }
+
+            var sequences_3T_DetailsText = {
+                0:  ["Protocol 3T"],
+                1:  ["Protocol 3T"],
+                2:  ["Protocol 3T"],
+                3:  ["Protocol 3T"],
+                4:  ["Protocol 3T"],
+                5:  ["Protocol 3T"],
+                6:  ["Protocol 3T"],
+                7:  ["Protocol 3T"],
+                8:  ["Protocol 3T"],
+                9:  ["Protocol 3T"],
+                10: ["Protocol 3T"],
+                11: ["Protocol 3T"],
+                12: ["Protocol 3T"],
+                13: ["Protocol 3T"],
+                14: ["Protocol 3T"],
+                15: ["Protocol 3T"],
+                16: ["Protocol 3T"],
+                17: ["Protocol 3T"],
+                18: ["Protocol 3T"],
+                19: ["Protocol 3T"],
+                20: ["Protocol 3T"]
             }
 
             var sequences_3T_Images = {
@@ -308,8 +332,8 @@
                 9:  ["/FIESTA.png"],
                 10: ["/HASTE.png"],
                 11:  ["/PREFUL.png"],
-                12: ["/PROPELLER.png"],
-                13: ["/PROPELLER.png"],
+                12: ["/PROPELLER_nav.png"],
+                13: ["/PROPELLER_nonav.png"],
                 14:  ["/T1_mapping.png"],
                 15:  ["/UTE.png"],
                 16: ["/DCE_non_contrast.png"],
@@ -641,7 +665,7 @@
                 const footer= document.createElement('footer');
                 footer.setAttribute("class","stikybottom");
                 footer.id="footer";
-                /*NJS edit*/
+                
                 const p= document.createElement('p');
                 p.textContent = "Contact: "
                 const p2= document.createElement('p');
@@ -660,7 +684,6 @@
 
                 footer.appendChild(p)
                 footer.appendChild(p2)
-                /*NJS edit end*/
 
                 fragment.appendChild(footer)
 
@@ -774,7 +797,15 @@
              }
 
             function downloadButton() {
-                window.open("https://drive.google.com/drive/folders/1aS2TcIV8GmBWXbAGA6wQoNofA7uYzKbA?usp=sharing")
+                if( document.getElementById('on').checked)
+                {
+                    window.open("https://drive.google.com/drive/folders/1aS2TcIV8GmBWXbAGA6wQoNofA7uYzKbA?usp=sharing")
+                }
+                else
+                {
+                    window.open("https://drive.google.com/drive/folders/1ckKd5jp4yTo2LhhaLeu9FJ2yMUUchxIT?usp=sharing")
+                }
+                
             }
 
             // Close the dropdown menu if the user clicks outside of it
