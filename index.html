@@ -28,26 +28,24 @@
             <div class="header-img-right"></div>
         
             <!-- Search-Filter UI -->
-            <div style="top:19em; width:25em;" class="center">
+            <div style="top:16em; width:25em;" class="center">
                 <form>
                     <fieldset class="fieldset" style="text-align:center;"data-role="controlgroup" data-type="horizontal">
-                        <input id="on" name="state-d" type="radio" checked="" />
-                        <label for="on" onclick="createTable()">1.5T</label>
-                        <input style="margin-left: 8px;" id="off" name="state-d" type="radio" />
-                        <label for="off" onclick="createTable()">3T</label>
-                        <!--<input type="checkbox" onclick="filterTa    ble()" id="proton" name="proton" checked>
-                        <label for="proton">Proton</label>-->
-                        <input style="margin-left: 42px;" type="checkbox" onclick="filterTable()" id="contrast" name="contrast" checked>
+                        <input id= "b_1_5T" onclick="createTable()" name="state-d" type="radio" checked="" />
+                        <label for="b_1_5T" onclick="createTable()">1.5T</label>
+                        <input id= "b_3T"   onclick="createTable()" name="state-d" type="radio" />
+                        <label for="b_3T"   onclick="createTable()">3T</label>
+                        <input id="contrast" type="checkbox" onclick="filterTable()" checked>
                         <label for="contrast">DCE</label>
-                        <input style="margin-left: 9px;" type="checkbox" onclick="filterTable()" id="xenon" name="xenon" checked>
+                        <input id="xenon" type="checkbox" onclick="filterTable()" checked>
                         <label for="xenon"><sup>129</sup>Xe</label>
-                        <input style="margin-left: 8px;" type="button" onclick="downloadButton()" value="Download all">
+                        <input id="download" type="button" onclick="downloadButton()" value="Download protocols">
                     </fieldset>
                     <input class="fieldset" type="text" id="myInput" onkeyup="searchTable()" placeholder="Search for sequence.." title="Type in a sequence">
                 </form>
             </div>
             <!-- Tab links --> 
-            <div style="position:absolute; width:100%; top:2em;">
+            <div style="position:absolute; width:100%; top:13em;">
                 <!-- Switch this with Download?-->
                 <div class="dropdown">
                     <button onclick="dropdownFunction()" class="dropbtn">Filter by Lung Condition</button>
@@ -63,7 +61,7 @@
             </div>
 
             <!-- Tab content -->
-            <div id="table_container" style="position:relative; margin-left:1%;width:98%; top:19.5em;">
+            <div id="table_container" style="position:relative; margin-left:1%;width:98%; top:21em;">
 
                 <div id="SEQtab" class="tabcontent">
                     <h3>All sequences</h3>
@@ -128,27 +126,6 @@
             }
 
             // Make sequences
-
-            // Unused
-            // var sequences_1_5T_Product = {
-            //     0:  ["Product"],
-            //     1:  ["Product"],
-            //     2:  ["Product"],
-            //     3:  ["ATSM"],
-            //     4:  ["ATSM"],
-            //     5:  ["Product"],
-            //     6:  ["Product"],
-            //     7:  ["Product"],
-            //     8:  ["Product"],
-            //     9:  ["Research"],
-            //     10: ["Product"],
-            //     11: ["Product"],
-            //     12: ["Research"],
-            //     13: ["Research"],
-            //     14: ["Research"],
-            //     15: ["Research"],
-            //     16: ["Research"]
-            // }
 
             var sequences_1_5T_Sequence = {
                 0: ["Xe QA"],
@@ -487,89 +464,25 @@
                 20:  ["Proton","Contrast"]
             }
 
-            // var sequences_1_5T_FOV = {
-            //     0:  ["40"],
-            //     1:  ["32"],
-            //     2:  ["34"],
-            //     3:  ["34"],
-            //     4:  ["48"],
-            //     5:  ["42"],
-            //     6:  ["46"],
-            //     7:  ["48"],
-            //     8:  ["48"],
-            //     9:  ["40"],
-            //     10: ["40"],
-            //     11: ["40"],
-            //     12: ["40"],
-            //     13: ["40"],
-            //     14: ["40"],
-            //     15: ["40"],
-            //     16: ["40"]
-            // }
-            // var sequences_1_5T_FA = {
-            //     0:  ["40"],
-            //     1:  ["32"],
-            //     2:  ["34"],
-            //     3:  ["34"],
-            //     4:  ["48"],
-            //     5:  ["42"],
-            //     6:  ["46"],
-            //     7:  ["48"],
-            //     8:  ["48"],
-            //     9:  ["40"],
-            //     10: ["40"],
-            //     11: ["40"],
-            //     12: ["40"],
-            //     13: ["40"],
-            //     14: ["40"],
-            //     15: ["40"],
-            //     16: ["40"]
-            // }
-            // var sequences_1_5T_duration = {
-            //     0:  ["15"],
-            //     1:  ["15"],
-            //     2:  ["360"],
-            //     3:  ["360"],
-            //     4:  ["360"],
-            //     5:  ["20"],
-            //     6:  ["240"],
-            //     7:  ["15"],
-            //     8:  ["490"],
-            //     9:  ["X"],
-            //     9:  ["30"],
-            //     10: ["30"],
-            //     11: ["10"],
-            //     12: ["10"],
-            //     13: ["10"],
-            //     14: ["15"],
-            //     15: ["16"],
-            //     16: ["16"]
-            // }
             //Create table dynamically, just make sure all attributes have the same length.
             function createTable() {
 
-                if( document.getElementById('on').checked)
+                var list_rows;
+
+                if( document.getElementById('b_1_5T').checked)
                 {
                     sequence_name = "sequences_1_5T_"
+                    list_rows = Object.keys(sequences_1_5T_Sequence); 
                 }
-                else
+                else if( document.getElementById('b_3T').checked)
                 {
                     sequence_name = "sequences_3T_"
+                    list_rows = Object.keys(sequences_3T_Sequence); 
                 }
 
                 var tabId=document.getElementsByClassName('active')[0].getAttribute('onclick').split(" ")[1].replace(/\W/g, '');
                 var tableId = tabId.substring(0,tabId.length-3);
                 document.getElementById(tableId).innerHTML = "";
-
-                var list_rows = Object.keys(sequences_1_5T_Sequence); 
-
-                /*if(tabId=="SEQtab")
-                {
-                    var attributes = ["Sequence","FOV","FA"];
-                }
-                else{
-                    var attributes = ["Sequence","Details","Images"];
-                }*/
 
                 var attributes = ["Sequence","Images","Details"];
 
@@ -597,8 +510,8 @@
                 //Rows:
                 for (let row = 0; row<list_rows.length; row++){ 
                     const tr = document.createElement('tr')
-                    tr.setAttribute('id',"Row"+row);//To identify the added rows
-                    tr.setAttribute('class',"Row"+row);//To identify the added rows
+                    tr.setAttribute('id',"Row"+row);
+                    tr.setAttribute('class',"Row"+row);
 
                     for (let column = 0; column<max_columns; column++){
                         const a = document.createElement('a')
@@ -616,9 +529,8 @@
                             else{
                                 td.setAttribute("width","15%");
                             }
-                            p.textContent = eval(sequence_name+ attributes[column]+"["+row+"]");//+ " ( " + eval(sequence_name+"Product["+row+"]") + " ) ";
+                            p.textContent = eval(sequence_name+ attributes[column]+"["+row+"]");
                             td.appendChild(p)
-                            
                         }
                         else{
                             if(column==1)
@@ -629,30 +541,10 @@
                             {
                                 td.setAttribute("width","60%");
                             }
-                        /* if(tabId=="SEQtab")
-                            {
-                                a.textContent = eval(sequence_name+ attributes[column]+"["+row+"]");
-                            }
-                            else{*/
-                                a.textContent = attributes[column];
-                                a.setAttribute("class", "detailslink");
 
-                                /*if(attributes[column]=="Images")
-                                {
-                                    links = eval(sequence_name+attributes[column]+"["+row+"]");
-                                    if(links.length==1)
-                                    {
-                                        a.href = "images/"+tableId+eval(sequence_name+attributes[column]+"["+row+"]");
-                                    }
-                                    else{
-                                        a.href = "images/"+tableId+eval(sequence_name+attributes[column]+"["+row+"][0]");
-                                    }
-                                }
-                                else{
-                                    a.href = eval(sequence_name+attributes[column]+"["+row+"]");
-                                    a.setAttribute('onclick', "window.open('"+eval(sequence_name+attributes[column]+"["+row+"]")+"'), 'newwindow', 'width=400, height=250'); return false;");
-                                }*/
-                            //}
+                            a.textContent = attributes[column];
+                            a.setAttribute("class", "detailslink");
+
                             td.appendChild(a)
                         }
                         td.setAttribute("type",sequences_Type[row])
@@ -669,7 +561,7 @@
                 const p= document.createElement('p');
                 p.textContent = "Contact: "
                 const p2= document.createElement('p');
-                p2.textContent = "|Webpage: "
+                p2.innerHTML = "&nbsp;&nbsp;| &nbsp;Webpage: &nbsp;"
 
                 const a= document.createElement('a');
                 a.textContent = "polaris@sheffield.ac.uk"
@@ -707,13 +599,6 @@
                             
                             tr[i].style.display = "";
 
-                            /*if (document.getElementById('proton').checked) {
-                                if(sequences_Type[i-1].includes('Proton'))
-                                {
-                                    tr[i].style.display = "";
-                                }
-                            }*/
-
                             if (!document.getElementById('contrast').checked) {
                                 if(sequences_Type[i-1].includes('Contrast'))
                                 {
@@ -748,46 +633,43 @@
                 tr = table.getElementsByTagName("tr");
 
                 // Loop through all table rows, and hide those who don't match the search query
-                for (i = 0; i < tr.length; i++) {
-                    //tr[i].style.display = "none";
-
+                for (i = 0; i < tr.length; i++) 
+                {
                     td = tr[i].getElementsByTagName("td")[0];
-                    if (td) {
-                    txtValue = td.textContent || td.innerText;
-
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-
-                    if(sequences_Protocol[i-1].includes(tableId)){
-                                
-                        /*if (document.getElementById('proton').checked) {
-                            if(sequences_Type[i-1].includes('Proton'))
-                            {
-                                tr[i].style.display = "";
-                            }
-                        }*/
-
-                        if (!document.getElementById('contrast').checked) {
-                            if(sequences_Type[i-1].includes('Contrast'))
-                            {
-                                tr[i].style.display = "none";
-                            }
-                        }
-
-                        if (!document.getElementById('xenon').checked) {
-                            if(sequences_Type[i-1].includes('Xenon'))
-                            {
-                                tr[i].style.display = "none";
-                            }
-                        }
-                    }
-                    else
+                    if (td) 
                     {
-                        tr[i].style.display = "none";
-                    }
+                        txtValue = td.textContent || td.innerText;
+
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) 
+                        {
+                            tr[i].style.display = "";
+                        } else 
+                        {
+                            tr[i].style.display = "none";
+                        }
+
+                        if(sequences_Protocol[i-1].includes(tableId)){
+
+                            if (!document.getElementById('contrast').checked) 
+                            {
+                                if(sequences_Type[i-1].includes('Contrast'))
+                                {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+
+                            if (!document.getElementById('xenon').checked) 
+                            {
+                                if(sequences_Type[i-1].includes('Xenon'))
+                                {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            tr[i].style.display = "none";
+                        }
                     }
                 }
             }
@@ -797,11 +679,11 @@
              }
 
             function downloadButton() {
-                if( document.getElementById('on').checked)
+                if( document.getElementById('b_1_5T').checked)
                 {
                     window.open("https://drive.google.com/drive/folders/1aS2TcIV8GmBWXbAGA6wQoNofA7uYzKbA?usp=sharing")
                 }
-                else
+                else if( document.getElementById('b_3T').checked)
                 {
                     window.open("https://drive.google.com/drive/folders/1ckKd5jp4yTo2LhhaLeu9FJ2yMUUchxIT?usp=sharing")
                 }
@@ -813,9 +695,11 @@
                 if (!event.target.matches('.dropbtn')) {
                     var dropdowns = document.getElementsByClassName("dropdown-content");
                     var i;
-                    for (i = 0; i < dropdowns.length; i++) {
+                    for (i = 0; i < dropdowns.length; i++) 
+                    {
                         var openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
+                        if (openDropdown.classList.contains('show')) 
+                        {
                             openDropdown.classList.remove('show');
                         }
                     }
@@ -970,26 +854,25 @@
                             else if(row_string.match(/\d+/)[0]=="5")//Dissolved maps
                             {
                                 var content = newTR.innerHTML+"<td style='background-color:black;'> <div class='grid'>";
-                                    if(tableId=="ILD")
-                                    {
-                                        content = content+
-                                    "<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC/TP</figcaption></figure>";
-                                    }
-                                    else{
-                                        content =  content+"<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                if(tableId=="ILD")
+                                {
+                                    content = content+
+                                        "<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC/TP</figcaption></figure>";
+                                }
+                                else{
+                                    content =  content+"<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
                                         <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
                                         <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC/TP</figcaption></figure>";
-                        
-                                    }
-                                    newTR.innerHTML = content + "</div></td>";;
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC/TP</figcaption></figure>";
+                                }
+                                newTR.innerHTML = content + "</div></td>";;
                             }
                             else if(row_string.match(/\d+/)[0]=="4")//Diffusion maps
                             {
@@ -1003,10 +886,9 @@
                             }
                             else{
                                 newTR.innerHTML =  newTR.innerHTML+"<td style='background-color:black;'><div class='grid'>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
-                                </div></td>";
-
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                    </div></td>";
                             }
                         }
 
@@ -1116,19 +998,19 @@
                                     {
                                         content = content+
                                     "<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC/TP</figcaption></figure>";
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+"/IPF"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>IPF RBC/TP</figcaption></figure>";
                                     }
                                     else{
                                         content =  content+"<figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
                                         <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][0]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
                                         <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
-                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC/TP</figcaption></figure>";
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][1]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy RBC/TP</figcaption></figure>\
+                                        <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"][2]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+" RBC/TP</figcaption></figure>";
                         
                                     }
                                     content = content + "</div></tr>";;
@@ -1144,9 +1026,9 @@
                             }
                             else{
                                 content =  content + "<div class='grid'>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
-                                <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
-                                </div></tr>";
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/Healthy"+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>Healthy</figcaption></figure>\
+                                    <figure><img class='class_image' id='image_"+row_number+"' src='images/"+tableId+eval(sequence_name+attributes[1]+"["+row_number+"]")+"' width=\"100%\" height=\"100%\"><figcaption>"+tableId+"</figcaption></figure>\
+                                    </div></tr>";
                             }
                         }
 
@@ -1166,12 +1048,9 @@
 
                         currTR.parentNode.insertBefore(newTRmid, currTR.nextSibling);
                     }
-
                     currTR.parentNode.insertBefore(newTR, currTR.nextSibling);
                 }
             }
-
         </script>
     </body>
-
  </html>
