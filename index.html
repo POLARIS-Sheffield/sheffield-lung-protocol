@@ -53,6 +53,7 @@
                     <a id="defaultOpen" class="tablinks active" onclick="openTab(event, 'SEQtab')">All sequences</a>
                     <a class="tablinks" onclick="openTab(event, 'ILDtab')">Interstitial Lung Disease</a>
                     <a class="tablinks" onclick="openTab(event, 'CFtab')">Cystic Fibrosis</a>
+                    <a class="tablinks" onclick="openTab(event, 'PAEDtab')">Paediatric</a>
                     <a class="tablinks" onclick="openTab(event, 'COPDtab')">Chronic Obstructive Pulmonary Disease</a>
                     <a class="tablinks" onclick="openTab(event, 'ASTHMAtab')">Asthma</a>
                     <!--<a class="tablinks" onclick="openTab(event, 'PVtab')">Pulmonary Vascular Diseases</a>-->
@@ -80,16 +81,25 @@
                     <table class="myTable" id="CF">
                     </table>
                 </div>
+
+                <div id="PAEDtab" class="tabcontent">
+                    <h3>Paediatric</h3>
+                    <table class="myTable" id="PAED">
+                    </table>
+                </div>
+
                 <div id="COPDtab" class="tabcontent">
                     <h3>COPD</h3>
                     <table class="myTable" id="COPD">
                     </table>
                 </div>
+
                 <div id="ASTHMAtab" class="tabcontent">
                     <h3>Asthma</h3>
                     <table class="myTable" id="ASTHMA">
                     </table>
                 </div>
+
                 <div id="PVtab" class="tabcontent">
                     <h3>Pulmonary Vascular Diseases</h3>
                     <table class="myTable" id="PV">
@@ -417,22 +427,22 @@
             }
 
             var sequences_Protocol = {
-                0: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
-                1: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
-                2: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
-                3: ["SEQ","CF","COPD","ASTHMA"],
+                0: ["SEQ","ILD","CF","PAED","COPD","ASTHMA","PV"],
+                1: ["SEQ","ILD","CF","PAED","COPD","ASTHMA","PV"],
+                2: ["SEQ","ILD","CF","PAED","COPD","ASTHMA","PV"],
+                3: ["SEQ","CF","PAED","COPD","ASTHMA"],
                 4: ["SEQ","ILD","COPD","PV"],
                 5: ["SEQ","ILD","COPD","PV"],
-                6: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
-                7: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
-                8: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
-                9: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
+                6: ["SEQ","ILD","CF","PAED","COPD","ASTHMA","PV"],
+                7: ["SEQ","ILD","CF","PAED","COPD","ASTHMA","PV"],
+                8: ["SEQ","ILD","CF","PAED","COPD","ASTHMA","PV"],
+                9: ["SEQ","ILD","CF","PAED","COPD","ASTHMA","PV"],
                 10: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
-                11: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
-                12: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
+                11: ["SEQ","ILD","CF","PAED","COPD","ASTHMA","PV"],
+                12: ["SEQ","ILD","CF","PAED","COPD","ASTHMA","PV"],
                 13: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
                 14: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
-                15: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
+                15: ["SEQ","ILD","CF","PAED","COPD","ASTHMA","PV"],
                 16: ["SEQ","ILD","CF","COPD","ASTHMA","PV"],
                 17: ["SEQ","ILD","COPD","PV"],
                 18: ["SEQ","ILD","COPD","PV"],
@@ -758,7 +768,7 @@
                         //Add sequence definition
                         newTR.innerHTML = '<td style="background-color:black;color:white;" onclick="openField(this,'+"'"+tableId+"'"+')">'+sequences_Instructions[row_number]+'</td>';
 
-                        if(tableId=="SEQ")//Only show healthy images in the general outlook
+                        if(tableId=="SEQ" || tableId=="PAED")//Only show healthy images in the general outlook
                         {
                             if(row_string.match(/\d+/)[0]=="1"||row_string.match(/\d+/)[0]=="7") //loc and coil calibration
                             {
@@ -909,7 +919,7 @@
 
                         content = "<td colspan='3' style='background-color:black;' onclick='openField(this,"+'"'+tableId+'"'+")'>";
 
-                        if(tableId=="SEQ")//Only show healthy images in the general outlook
+                        if(tableId=="SEQ" || tableId=="PAED")//Only show healthy images in the general outlook or paeds
                         {
                             if(row_string.match(/\d+/)[0]=="1"||row_string.match(/\d+/)[0]=="7") //loc and coil calibration
                             {
